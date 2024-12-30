@@ -5,37 +5,37 @@
 
 잔액 충전 / 조회 API**
 
-TYPE : post 
+TYPE : post <br>
 /point/{id}/charge
 
 
-TYPE : get
+TYPE : get <br>
 /point/{id}
 
 상품 조회 API**
 
-TYPE : post 
+TYPE : post <br>
 /product/list
 
 
 주요 선착순 쿠폰 기능**
 
-TYPE : post
+TYPE : post <br>
 /coupon/add
 
-TYPE : get
+TYPE : get <br>
 /coupon/list
 
 
 주문 / 결제 API**
 
-TYPE : post
+TYPE : post <br>
 /product/{id}/use
 
 
 상위 상품 조회 API
 
-TYPE : get
+TYPE : get <br>
 /product/rank
 
 
