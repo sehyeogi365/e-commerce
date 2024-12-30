@@ -13,18 +13,29 @@ TYPE : get
 /point/{id}
 
 상품 조회 API**
+
 TYPE : post 
 /product/list
 
 
 주요 선착순 쿠폰 기능**
 
+TYPE : post
+/coupon/add
+
+TYPE : get
+/coupon/list
+
 
 주문 / 결제 API**
-/product/{id}/buy
+
+/product/{id}/use
 
 
 상위 상품 조회 API
+
+TYPE : get
+/product/rank
 
 
 
