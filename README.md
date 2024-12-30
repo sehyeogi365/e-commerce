@@ -29,6 +29,7 @@ TYPE : get
 
 주문 / 결제 API**
 
+TYPE : post
 /product/{id}/use
 
 
