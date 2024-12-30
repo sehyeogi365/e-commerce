@@ -1,0 +1,91 @@
+plugins {
+	id 'java'
+	id("org.springframework.boot") version "3.4.1"
+	id("io.spring.dependency-management") version "1.1.7"
+}
+
+//fun getGitHash(): String {
+//	return providers.exec {
+//		commandLine("git", "rev-parse", "--short", "HEAD")
+//	}.standardOutput.asText.get().trim()
+//}
+
+group = "kr.hhplus.be"
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencyManagement {
+	imports {
+		mavenBom("org.springframework.cloud:spring-cloud-dependencies:2024.0.0")
+	}
+}
+
+
+//dependencies {
+//	implementation 'org.springframework.boot:spring-boot-starter-web'
+//	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//
+//	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+//	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//	runtimeOnly 'com.mysql:mysql-connector-j'
+//	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+//		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+//	}
+//	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+//
+//	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+//	implementation 'javax.servlet:jstl'//3.0미만
+////	implementation 'jakarta.servlet:jakarta.servlet-api' //스프링부트 3.0 이상
+////	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api' //스프링부트 3.0 이상
+////	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl' //스프링부트 3.0 이상
+//	implementation "org.apache.tomcat.embed:tomcat-embed-jasper"
+//}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-web-services'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	runtimeOnly 'com.h2database:h2'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation group: 'org.javassist', name: 'javassist', version: '3.15.0-GA'
+}
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+
+//dependencies {
+//    // Spring
+//	implementation("org.springframework.boot:spring-boot-starter-actuator")
+//	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+//	implementation("org.springframework.boot:spring-boot-starter-web")
+//
+//    // DB
+//	runtimeOnly("com.mysql:mysql-connector-j")
+//
+//    // Test
+//    testImplementation("org.springframework.boot:spring-boot-starter-test")
+//	testImplementation("org.springframework.boot:spring-boot-testcontainers")
+//	testImplementation("org.testcontainers:junit-jupiter")
+//	testImplementation("org.testcontainers:mysql")
+//	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+//}
+//
+//tasks.withType<Test> {
+//	useJUnitPlatform()
+//	systemProperty("user.timezone", "UTC")
+//}
