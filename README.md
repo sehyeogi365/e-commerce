@@ -1,3 +1,7 @@
+# e-commerce
+https://www.notion.so/16d7a828b6178009b469fd08929de91d
+
+
 ## 프로젝트
 
 ## Getting Started
