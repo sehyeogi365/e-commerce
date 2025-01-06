@@ -2,10 +2,14 @@ package kr.hhplus.be.server.interfaces.balance.controller;
 
 
 import kr.hhplus.be.server.domain.balance.service.BalanceService;
+import kr.hhplus.be.server.interfaces.balance.dto.PointResponse;
+import kr.hhplus.be.server.interfaces.common.ApiResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/vi/point")
 public class BalanceController {
 
@@ -17,9 +21,9 @@ public class BalanceController {
 
     //포인트 충전
     @PostMapping("/charge")
-    public String pointCharge(){
+    public ApiResponse<PointResponse> pointCharge(@PathVariable(name = "userId") int userId){
 
-        return "";
+
     }
 
     //잔액 조회
