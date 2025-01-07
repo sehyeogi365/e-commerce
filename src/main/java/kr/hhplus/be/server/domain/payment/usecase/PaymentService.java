@@ -15,9 +15,9 @@ public class PaymentService {
     private PaymentRepository paymentRepository;
     //결제하기
     @Transactional
-    public Payment addPayment(Payment payment){
+    public Payment addPayment(int userId, int orderId){
 
-        return paymentRepository.save(payment);
+        return paymentRepository.save(userId,  orderId);
     }
 
     //결제 내역 조회

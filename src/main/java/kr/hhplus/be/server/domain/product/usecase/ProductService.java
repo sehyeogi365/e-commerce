@@ -14,9 +14,9 @@ public class ProductService {
     private ProductRepository productRepository;
 
     //상품 조회
-    public Optional<Product> getProductList(Product product){
+    public Optional<Product> getProductList(int id){
 
-        return productRepository.getProductList(product);
+        return productRepository.getProductList(id);
     }
 
     //Top5

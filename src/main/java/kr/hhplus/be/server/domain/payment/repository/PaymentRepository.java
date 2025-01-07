@@ -5,10 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface PaymentRepository extends JpaRepository {
+public interface PaymentRepository {
 
     //결제하기
-    Payment save(Payment payment);
+    Payment save(int userId, int orderId);
 
     //결제 내역 조회
     Optional<Payment> getPaymentList(int userId);

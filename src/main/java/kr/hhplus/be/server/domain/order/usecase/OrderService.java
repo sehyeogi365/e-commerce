@@ -16,9 +16,9 @@ public class OrderService {
 
     //주문하기
     @Transactional
-    public Order orderProduct(Order order){
+    public Order orderProduct(int userId, int productId){
 
-        return orderRepository.save(order);
+        return orderRepository.save(userId, productId);
     }
 
     //주문 목록 조회

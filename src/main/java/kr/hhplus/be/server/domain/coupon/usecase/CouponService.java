@@ -16,9 +16,16 @@ public class CouponService {
 
     //쿠폰 목록 조회
     @Transactional
-    Optional<Coupon> getCoupon(){
+    Optional<Coupon> getCouponList(){
 
-        return couponRepository.getCoupon();
+        return couponRepository.getCouponList();
+    }
+
+    //쿠폰 발급
+    @Transactional
+    Coupon getCoupon(int userId){
+
+        return couponRepository.getCoupon(userId);
     }
 
     //사용자 쿠폰 목록 조회

@@ -3,7 +3,7 @@ package kr.hhplus.be.server.domain.point.repository;
 import kr.hhplus.be.server.domain.point.entity.Point;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PointRepository extends JpaRepository {
+public interface PointRepository {
 
     //포인트 조회
     Point getUserPoint(int userId);
