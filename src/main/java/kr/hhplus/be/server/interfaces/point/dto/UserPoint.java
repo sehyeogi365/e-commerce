@@ -1,7 +1,6 @@
 package kr.hhplus.be.server.interfaces.point.dto;
 
 public record UserPoint(
-
         int id,
         int point,
         long updateMillis
