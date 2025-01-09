@@ -36,7 +36,11 @@ public class CouponRepositoryImpl implements CouponRepository {
         return couponJpaRepository.findById(id);
     }
 
-    //쿠폰 상태 변경
+    //쿠폰 사용
+    @Override
+    public void useCoupon(long id){
+        couponJpaRepository.useCoupon(id);
+    }
 
     //쿠폰 발급
     @Override

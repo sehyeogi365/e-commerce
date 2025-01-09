@@ -15,10 +15,8 @@ public class Point extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
-    @Column(name="userId")
     int userId;
 
-    @Column(name="amount")
     int amount;
 
 }

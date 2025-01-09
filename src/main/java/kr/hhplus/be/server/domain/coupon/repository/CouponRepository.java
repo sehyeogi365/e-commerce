@@ -17,6 +17,9 @@ public interface CouponRepository {
     //쿠폰 한행 조회
     Optional<Coupon> getCouponInfo(long id);
 
+    //쿠폰 사용
+    void useCoupon(long id);
+
     //쿠폰 발급
     Coupon getCoupon(Coupon coupon);
 

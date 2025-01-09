@@ -34,9 +34,14 @@ public class ProductRepositoryImpl implements ProductRepository {
     //상품 1행 정보 조회
     @Override
     public Optional<Product> findById(long id) {
-        return  productJpaRepository.findById(id);
+        return productJpaRepository.findById(id);
     }
 
+    //상품 갯수  차감
+    @Override
+    public void productQuantityDecrease(long id) {
+        productJpaRepository.productQuantityDecrease(id);
+    }
 
     //Top5
     @Override

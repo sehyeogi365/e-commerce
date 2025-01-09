@@ -16,6 +16,9 @@ public interface ProductRepository {
     //상품 1행 정보 조회
     Optional<Product> findById(long id);
 
+    //상품 갯수 차감
+    void productQuantityDecrease(long id);
+
     //Top5
     Optional<List<Product>> getTop5List();
 

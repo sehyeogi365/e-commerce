@@ -15,22 +15,16 @@ public class Order extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="userId")
     private int userId;
 
-    @Column(name="productId")
     private int productId;
 
-    @Column(name="couponId")
     private int couponId;
 
-    @Column(name="statement")
     private String statement;
 
-    @Column(name="originPrice")
     private int originPrice;
 
-    @Column(name="discountPrice")
     private int discountPrice;
 
 }

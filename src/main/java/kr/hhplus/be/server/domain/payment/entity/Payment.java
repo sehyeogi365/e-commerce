@@ -17,6 +17,10 @@ public class Payment extends BaseTimeEntity {
 
     private int orderId;
 
+    private int productId;
+
+    private int couponId;
+
     private String statement;
 
     private int originPrice;
