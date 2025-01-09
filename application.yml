@@ -6,13 +6,13 @@
 #spring.jpa.hibernate.ddl-auto=none
 spring:
   datasource:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/hhplus
-      username: root
-      password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hhplus
+    username: root
+    password: root
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
   springdoc:
     swagger-ui:
@@ -30,4 +30,4 @@ spring:
     default-produces-media-type: application/json
     writer-with-default-pretty-printer: true
     model-and-view-allowed: true
-    paths-to-match:
+    paths-to-match: /api/**
