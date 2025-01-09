@@ -1,23 +1,24 @@
 package kr.hhplus.be.server.domain.point.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import kr.hhplus.be.server.domain.common.BaseTimeEntity;
 import lombok.*;
 
 @Entity
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name="point")
 public class Point extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    long id;
+
+    @Column(name="userId")
     int userId;
+
+    @Column(name="amount")
     int amount;
 
 }

@@ -7,10 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 
-import java.util.List;
-import java.util.Optional;
-
-public interface PaymentJpaRepository extends JpaRepository<Payment, Integer> {
+public interface PaymentJpaRepository extends JpaRepository<Payment, Long> {
 
     //결제하기
     @Lock(LockModeType.PESSIMISTIC_WRITE)

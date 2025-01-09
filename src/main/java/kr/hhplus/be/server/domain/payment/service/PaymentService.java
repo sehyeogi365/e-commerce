@@ -1,29 +1,24 @@
 package kr.hhplus.be.server.domain.payment.service;
 
-import kr.hhplus.be.server.domain.coupon.repository.CouponRepository;
+
 import kr.hhplus.be.server.domain.payment.entity.Payment;
 import kr.hhplus.be.server.domain.payment.repository.PaymentRepository;
-import kr.hhplus.be.server.domain.product.entity.Product;
-import kr.hhplus.be.server.domain.product.repository.ProductRepository;
+
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class PaymentService {
 
 
-    private PaymentRepository paymentRepository;
-
-    private CouponRepository couponRepository;
-    private ProductRepository productRepository;
+    private final PaymentRepository paymentRepository;
 
     //결제하기
     @Transactional
@@ -48,7 +43,6 @@ public class PaymentService {
         }catch (IllegalArgumentException e){
             throw new IllegalStateException("PayHistory not found");
         }
-
     }
 
 }

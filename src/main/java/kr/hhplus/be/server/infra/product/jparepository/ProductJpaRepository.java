@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
-public interface ProductJpaRepository extends JpaRepository<Product, Integer> {
+public interface ProductJpaRepository extends JpaRepository<Product, Long> {
 
     //상품 조회
     @Lock(LockModeType.PESSIMISTIC_WRITE)
@@ -21,7 +21,7 @@ public interface ProductJpaRepository extends JpaRepository<Product, Integer> {
     //상품 1행정보 조회
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT p FROM product p where p.id = :id")
-    Optional<Product> findById(int id);
+    Optional<Product> findById(long id);
 
     //Top5
     @Lock(LockModeType.PESSIMISTIC_WRITE)

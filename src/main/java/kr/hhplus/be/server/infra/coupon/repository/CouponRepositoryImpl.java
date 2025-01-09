@@ -4,23 +4,19 @@ package kr.hhplus.be.server.infra.coupon.repository;
 import kr.hhplus.be.server.domain.coupon.entity.Coupon;
 import kr.hhplus.be.server.domain.coupon.repository.CouponRepository;
 import kr.hhplus.be.server.infra.coupon.jparepository.CouponJpaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public class CouponRepositoryImpl implements CouponRepository {
 
     private final CouponJpaRepository couponJpaRepository;
-
-    public CouponRepositoryImpl(CouponJpaRepository couponJpaRepository) {
-        this.couponJpaRepository = couponJpaRepository;
-    }
 
     //쿠폰 목록 조회
     @Override
@@ -31,14 +27,12 @@ public class CouponRepositoryImpl implements CouponRepository {
         if(coupons == null){
             throw new IllegalArgumentException("No coupons found");
         }
-
         return coupons;
     }
 
     //쿠폰 한행 조회
     @Override
-    public Optional<Coupon> getCouponInfo(int id){
-
+    public Optional<Coupon> getCouponInfo(long id){
         return couponJpaRepository.findById(id);
     }
 
@@ -51,7 +45,6 @@ public class CouponRepositoryImpl implements CouponRepository {
         if(coupon == null){
             throw new IllegalArgumentException("No coupons found");
         }
-
         return couponJpaRepository.save(coupon);
     }
 

@@ -3,19 +3,19 @@ package kr.hhplus.be.server.domain.coupon.repository;
 import kr.hhplus.be.server.domain.coupon.entity.Coupon;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Repository;
+
 
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+//@Repository //디비 조회가 일어나는 구간이 아니기에 지우기
 public interface CouponRepository {
 
     //쿠폰 목록 조회
     Page<Coupon> getCoupons(Pageable pageable);
 
     //쿠폰 한행 조회
-    Optional<Coupon> getCouponInfo(int id);
+    Optional<Coupon> getCouponInfo(long id);
 
     //쿠폰 발급
     Coupon getCoupon(Coupon coupon);

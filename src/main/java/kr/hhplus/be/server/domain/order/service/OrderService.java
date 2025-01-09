@@ -3,9 +3,7 @@ package kr.hhplus.be.server.domain.order.service;
 import kr.hhplus.be.server.domain.order.entity.Order;
 import kr.hhplus.be.server.domain.order.repository.OrderRepository;
 import kr.hhplus.be.server.domain.product.entity.Product;
-import kr.hhplus.be.server.domain.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,8 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OrderService {
 
-    private OrderRepository orderRepository;
-    private ProductRepository productRepository;
+    private final OrderRepository orderRepository;
 
     //주문하기
     @Transactional
@@ -33,7 +30,6 @@ public class OrderService {
         }catch (IllegalArgumentException e){
             throw new IllegalStateException("No Product Remain");
         }
-
     }
 
     //주문 목록 조회
@@ -44,7 +40,6 @@ public class OrderService {
         } catch (IllegalArgumentException e) {
             throw new IllegalStateException("No orders found for user ID: " + userId, e);
         }
-
     }
 
 }

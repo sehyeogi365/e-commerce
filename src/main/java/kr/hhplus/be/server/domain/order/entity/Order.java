@@ -6,27 +6,31 @@ import lombok.*;
 
 @Entity
 @Getter
-@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Table(name ="order_history")
 public class Order extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
+    @Column(name="userId")
     private int userId;
 
+    @Column(name="productId")
     private int productId;
 
+    @Column(name="couponId")
     private int couponId;
 
+    @Column(name="statement")
     private String statement;
 
+    @Column(name="originPrice")
     private int originPrice;
 
+    @Column(name="discountPrice")
     private int discountPrice;
 
 }

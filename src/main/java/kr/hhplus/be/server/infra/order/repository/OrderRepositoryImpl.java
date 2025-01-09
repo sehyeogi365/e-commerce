@@ -4,6 +4,7 @@ import kr.hhplus.be.server.domain.order.entity.Order;
 import kr.hhplus.be.server.domain.order.repository.OrderRepository;
 import kr.hhplus.be.server.domain.product.entity.Product;
 import kr.hhplus.be.server.infra.order.jparepository.OrderJpaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -12,25 +13,21 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public class OrderRepositoryImpl implements OrderRepository {
 
     private final OrderJpaRepository orderJpaRepository;
 
-    public OrderRepositoryImpl(OrderJpaRepository orderJpaRepository) {
-        this.orderJpaRepository = orderJpaRepository;
-    }
 
     //주문하기
     @Override
     public Order save(Order order) {
-
         return orderJpaRepository.save(order);
     }
 
     //상품 한행 정보
     @Override
     public Optional<Product> findById(int id) {
-
         return orderJpaRepository.findById(id);
     }
 
