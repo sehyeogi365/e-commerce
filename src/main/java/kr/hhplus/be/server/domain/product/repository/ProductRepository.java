@@ -1,6 +1,7 @@
 package kr.hhplus.be.server.domain.product.repository;
 
 import kr.hhplus.be.server.domain.product.entity.Product;
+import kr.hhplus.be.server.domain.product.entity.ProductSale;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -16,10 +17,13 @@ public interface ProductRepository {
     //상품 1행 정보 조회
     Optional<Product> findById(long id);
 
+    //판매수량 증가
+    void ProductSalesIncrease(int productId);
+
     //상품 갯수 차감
     void productQuantityDecrease(long id);
 
     //Top5
-    Optional<List<Product>> getTop5List();
+    List<ProductSale> getTop5List();
 
 }

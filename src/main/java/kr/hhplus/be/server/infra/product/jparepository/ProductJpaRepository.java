@@ -2,6 +2,7 @@ package kr.hhplus.be.server.infra.product.jparepository;
 
 import jakarta.persistence.LockModeType;
 import kr.hhplus.be.server.domain.product.entity.Product;
+import kr.hhplus.be.server.domain.product.entity.ProductSale;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,6 +26,12 @@ public interface ProductJpaRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM product p where p.id = :id")
     Optional<Product> findById(@Param("id") long id);
 
+    //판매 수량 증가
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Modifying
+    @Query("UPDATE product_sales p SET p.quantitySold = p.quantitySold+1 where p.productId = :productId")
+    void productSaleIncrease(@Param("productId") int productId);
+
     //상품 갯수 차감
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Modifying
@@ -32,7 +39,7 @@ public interface ProductJpaRepository extends JpaRepository<Product, Long> {
     void productQuantityDecrease(@Param("id") long id);
 
     //Top5
-    @Query("SELECT p FROM product p where p.id = :id")
-    Optional<List<Product>> findTop5();
+    @Query(value= "SELECT p FROM product_sales p WHERE p.salesDate >= CURRENT_DATE - 3 ORDER BY DESC quantitySold LIMIT 5", nativeQuery = true)
+    List<ProductSale> findTop5();
 
 }

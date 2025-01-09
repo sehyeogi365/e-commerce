@@ -2,6 +2,7 @@ package kr.hhplus.be.server.infra.product.repository;
 
 
 import kr.hhplus.be.server.domain.product.entity.Product;
+import kr.hhplus.be.server.domain.product.entity.ProductSale;
 import kr.hhplus.be.server.domain.product.repository.ProductRepository;
 import kr.hhplus.be.server.infra.product.jparepository.ProductJpaRepository;
 
@@ -37,7 +38,13 @@ public class ProductRepositoryImpl implements ProductRepository {
         return productJpaRepository.findById(id);
     }
 
-    //상품 갯수  차감
+    //판매수량 증가
+    @Override
+    public void ProductSalesIncrease(int productId) {
+        productJpaRepository.productSaleIncrease(productId);
+    }
+
+    //상품 갯수 차감
     @Override
     public void productQuantityDecrease(long id) {
         productJpaRepository.productQuantityDecrease(id);
@@ -45,14 +52,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     //Top5
     @Override
-    public Optional<List<Product>> getTop5List() {
-
-        //5개일때
-
-        //5개미만일때 분기처리
-
-        return null;
+    public List<ProductSale> getTop5List() {
+        return productJpaRepository.findTop5();
     }
-
-
 }

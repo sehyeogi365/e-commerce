@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,30 +20,31 @@ public class CouponRepositoryImpl implements CouponRepository {
     private final CouponJpaRepository couponJpaRepository;
 
     //쿠폰 목록 조회
+    @Transactional
     @Override
     public Page<Coupon> getCoupons(Pageable pageable) {
 
         Page<Coupon> coupons = couponJpaRepository.findAll(pageable);
 
-        if(coupons == null){
-            throw new IllegalArgumentException("No coupons found");
-        }
         return coupons;
     }
 
     //쿠폰 한행 조회
+    @Transactional
     @Override
     public Optional<Coupon> getCouponInfo(long id){
         return couponJpaRepository.findById(id);
     }
 
     //쿠폰 사용
+    @Transactional
     @Override
     public void useCoupon(long id){
         couponJpaRepository.useCoupon(id);
     }
 
     //쿠폰 발급
+    @Transactional
     @Override
     public Coupon getCoupon(Coupon coupon) {
 

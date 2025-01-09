@@ -67,8 +67,6 @@ public class CouponService {
         }
     }
 
-    //쿠폰 갯수 차감
-
     //사용자 쿠폰 목록 조회
     public Optional<List<Coupon>> getUserCoupon(int userId){
         return couponRepository.getUserCoupon(userId);//impl에서 쿠폰 있는지 없는지 로직처리

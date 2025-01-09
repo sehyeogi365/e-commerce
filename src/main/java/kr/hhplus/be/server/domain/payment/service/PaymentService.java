@@ -23,7 +23,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PaymentService {
 
-
     private final PaymentRepository paymentRepository;
     private final ProductRepository productRepository;
     private final CouponRepository couponRepository;
@@ -49,6 +48,8 @@ public class PaymentService {
 
         //쿠폰 적용시 가격 감소
 
+        //판매량 수량 추가
+        productRepository.ProductSalesIncrease(payment.getProductId());
 
         //결제 정보 저장
         return paymentRepository.save(payment);

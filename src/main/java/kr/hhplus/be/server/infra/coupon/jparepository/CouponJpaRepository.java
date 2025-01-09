@@ -7,11 +7,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+
 
 
 public interface CouponJpaRepository extends JpaRepository<Coupon, Long> {
@@ -28,7 +31,8 @@ public interface CouponJpaRepository extends JpaRepository<Coupon, Long> {
 
     //쿠폰 사용
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query
+    @Modifying
+    @Query("UPDATE Coupon c SET c.quantity = c.quantity - 1 WHERE c.id = :id AND c.quantity > 0")
     void useCoupon(@Param("id") long id);
 
     //쿠폰 발급
