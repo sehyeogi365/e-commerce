@@ -8,5 +8,5 @@ public interface PointRepository {
     Point getUserPoint(int userId);
 
     //잔액 충전
-    Point chargePoint(int userId);
+    Integer chargePoint(int userId, int point);
 }

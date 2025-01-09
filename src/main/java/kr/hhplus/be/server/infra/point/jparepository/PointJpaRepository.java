@@ -2,6 +2,7 @@ package kr.hhplus.be.server.infra.point.jparepository;
 
 import kr.hhplus.be.server.domain.point.entity.Point;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 public interface PointJpaRepository extends JpaRepository<Point, Long> {
 
@@ -9,5 +10,6 @@ public interface PointJpaRepository extends JpaRepository<Point, Long> {
     Point findByUserId(int userId);
 
     //잔액 충전
-    Point chargePoint(int userId);
+    @Query(value = "Update Point p SET p.point =.point WHERE p.userId = :userId", nativeQuery = true)
+    Integer chargePoint(int userId, int point);
 }

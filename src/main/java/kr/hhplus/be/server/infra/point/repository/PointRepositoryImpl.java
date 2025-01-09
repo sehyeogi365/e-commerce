@@ -18,8 +18,8 @@ public class PointRepositoryImpl implements PointRepository {
     }
 
     @Override
-    public Point chargePoint(int userId) {
-        return pointJpaRepository.chargePoint(userId);
+    public Integer chargePoint(int userId, int point) {
+        return pointJpaRepository.chargePoint(userId, point);
     }
 
 }

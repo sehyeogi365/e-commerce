@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="point")
+@Table(name="user_point")
 public class Point extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +18,7 @@ public class Point extends BaseTimeEntity {
     @Column(name="userId")
     int userId;
 
-    @Column(name="amount")
-    int amount;
+    @Column(name="point")
+    int point;
 
 }

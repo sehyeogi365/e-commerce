@@ -19,8 +19,8 @@ public class PointService {
 
 
     //잔액 충전
-    public Point chargePoint(int userId){
-        return pointRepository.chargePoint(userId);
+    public Integer chargePoint(int userId, int point){
+        return pointRepository.chargePoint(userId, point);
     }
 
 }
