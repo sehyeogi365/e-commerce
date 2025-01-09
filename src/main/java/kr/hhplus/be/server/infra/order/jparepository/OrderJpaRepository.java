@@ -20,7 +20,7 @@ public interface OrderJpaRepository extends JpaRepository<Order, Long> {
 
     //상품 한행 정보
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("SELECT p FROM product p WHERE p.id = :id")
+    @Query("SELECT p FROM Product p WHERE p.id = :id")
     Optional<Product> findById(@Param("id") long id);
 
     //주문 목록 조회

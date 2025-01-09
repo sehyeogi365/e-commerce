@@ -21,10 +21,13 @@ public class ProductSale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
+    @Column(name="productId")
     int productId;
 
+    @Column(name="saleDate")
     LocalDateTime saleDate;
 
+    @Column(name="quantitySold")
     int quantitySold;
 
 }

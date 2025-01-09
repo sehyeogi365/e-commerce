@@ -17,25 +17,24 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CouponService {
 
     private final CouponRepository couponRepository;//TODO: 생성자 or 롬복 주입 required..
 
     //쿠폰 목록 조회
-    @Transactional
-    public Page<Coupon> getCouponList(Pageable pageable){//메서드 명칭 변경 or 타입변경
+    public List<Coupon> getCouponList(){//메서드 명칭 변경 or 타입변경
 
-        Page<Coupon> coupons = couponRepository.getCoupons(pageable);
+        List<Coupon> coupons = couponRepository.getCoupons();
 
         try {
-            return couponRepository.getCoupons(pageable);
+            return couponRepository.getCoupons();
         } catch (IllegalArgumentException e) {
             throw new IllegalStateException("No Coupon");
         }
     }
 
     //쿠폰 발급
-    @Transactional
     public Coupon getCoupon(Coupon coupon){
 
         try {

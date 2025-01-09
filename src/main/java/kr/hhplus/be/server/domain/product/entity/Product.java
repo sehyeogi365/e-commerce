@@ -15,10 +15,13 @@ public class Product extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name="name")
     private String name;
 
+    @Column(name="price")
     private int price;
 
+    @Column(name="quantity")
     private int quantity;
 
 }

@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 
+import java.util.List;
+
 public interface PaymentJpaRepository extends JpaRepository<Payment, Long> {
 
     //결제하기
@@ -14,5 +16,5 @@ public interface PaymentJpaRepository extends JpaRepository<Payment, Long> {
     Payment save(Payment payment);
 
     //결제내역 조회
-    Page<Payment> findByUserId(int userId, Pageable pageable);
+    List<Payment> findByUserId(int userId);
 }

@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -57,10 +58,10 @@ public class PaymentService {
 
 
     //결제 내역 조회
-    public Page<Payment> getPayment(int userId, Pageable pageable){
+    public List<Payment> getPayment(int userId){
 
         try{
-            return paymentRepository.getPaymentList(userId, pageable);
+            return paymentRepository.getPaymentList(userId);
         }catch (IllegalArgumentException e){
             throw new IllegalStateException("PayHistory not found");
         }

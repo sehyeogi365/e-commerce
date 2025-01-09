@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 @Repository
 @RequiredArgsConstructor
@@ -25,9 +27,9 @@ public class PaymentRepositoryImpl implements PaymentRepository{
 
     //결제내역 조회
     @Override
-    public Page<Payment> getPaymentList(int userId, Pageable pageable) {
+    public List<Payment> getPaymentList(int userId) {
 
-        Page<Payment> payments = paymentJpaRepository.findByUserId(userId, pageable);
+        List<Payment> payments = paymentJpaRepository.findByUserId(userId);
 
         if(payments == null){
             throw new IllegalArgumentException("PayHistory Not Found");

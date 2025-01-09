@@ -18,28 +18,28 @@ public interface ProductJpaRepository extends JpaRepository<Product, Long> {
 
     //상품 조회
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("SELECT p FROM product p ")
+    @Query("SELECT p FROM Product p ")
     Page<Product> findAll(Pageable pageable);
 
     //상품 1행정보 조회
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("SELECT p FROM product p where p.id = :id")
+    @Query("SELECT p FROM Product p where p.id = :id")
     Optional<Product> findById(@Param("id") long id);
 
     //판매 수량 증가
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Modifying
-    @Query("UPDATE product_sales p SET p.quantitySold = p.quantitySold+1 where p.productId = :productId")
+    @Query("UPDATE ProductSale p SET p.quantitySold = p.quantitySold+1 where p.productId = :productId")
     void productSaleIncrease(@Param("productId") int productId);
 
     //상품 갯수 차감
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Modifying
-    @Query("UPDATE product p SET p.quantity = p.quantity-1 where p.id = :id")
+    @Query("UPDATE Product p SET p.quantity = p.quantity-1 where p.id = :id")
     void productQuantityDecrease(@Param("id") long id);
 
     //Top5
-    @Query(value= "SELECT p FROM product_sales p WHERE p.salesDate >= CURRENT_DATE - 3 ORDER BY DESC quantitySold LIMIT 5", nativeQuery = true)
+    @Query(value= "SELECT p FROM ProductSale p WHERE p.salesDate >= CURRENT_DATE - 3 ORDER BY DESC quantitySold LIMIT 5", nativeQuery = true)
     List<ProductSale> findTop5();
 
 }

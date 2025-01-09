@@ -21,12 +21,12 @@ public interface CouponJpaRepository extends JpaRepository<Coupon, Long> {
 
     //쿠폰 목록 조회
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("SELECT c FROM coupon c WHERE c.quantity > 0")
-    Page<Coupon> findAll(Pageable pageable);
+    @Query("SELECT c FROM Coupon c WHERE c.quantity > 0")
+    List<Coupon> findAll();
 
     //쿠폰 한행 조회
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("SELECT c FROM coupon c WHERE c.id = :id")
+    @Query("SELECT c FROM Coupon c WHERE c.id = :id")
     Optional<Coupon> findById(@Param("id") long id);
 
     //쿠폰 사용
@@ -40,7 +40,7 @@ public interface CouponJpaRepository extends JpaRepository<Coupon, Long> {
     Coupon save(Coupon coupon);
 
     //사용자 쿠폰 목록 조회
-    @Query("SELECT c FROM coupon c WHERE c.userId = :userId")
+    @Query("SELECT c FROM UserCoupon c WHERE c.userId = :userId")
     Optional<List<Coupon>> findByUserId(@Param("userId")int userId);
 
 }

@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface CouponRepository {
 
     //쿠폰 목록 조회
-    Page<Coupon> getCoupons(Pageable pageable);
+    List<Coupon> getCoupons();
 
     //쿠폰 한행 조회
     Optional<Coupon> getCouponInfo(long id);

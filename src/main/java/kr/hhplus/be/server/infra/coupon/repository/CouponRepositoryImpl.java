@@ -15,36 +15,31 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
+@Transactional
 public class CouponRepositoryImpl implements CouponRepository {
 
     private final CouponJpaRepository couponJpaRepository;
 
     //쿠폰 목록 조회
-    @Transactional
+
     @Override
-    public Page<Coupon> getCoupons(Pageable pageable) {
-
-        Page<Coupon> coupons = couponJpaRepository.findAll(pageable);
-
-        return coupons;
+    public List<Coupon> getCoupons() {
+        return  couponJpaRepository.findAll();
     }
 
     //쿠폰 한행 조회
-    @Transactional
     @Override
     public Optional<Coupon> getCouponInfo(long id){
         return couponJpaRepository.findById(id);
     }
 
     //쿠폰 사용
-    @Transactional
     @Override
     public void useCoupon(long id){
         couponJpaRepository.useCoupon(id);
     }
 
     //쿠폰 발급
-    @Transactional
     @Override
     public Coupon getCoupon(Coupon coupon) {
 
