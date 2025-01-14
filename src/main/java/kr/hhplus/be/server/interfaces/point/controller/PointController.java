@@ -9,13 +9,18 @@ import kr.hhplus.be.server.interfaces.point.dto.PointRequest;
 import kr.hhplus.be.server.interfaces.point.dto.PointResponse;
 import kr.hhplus.be.server.interfaces.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RestControllerAdvice
 @RequestMapping("/api/vi/point")
 public class PointController {
 
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     //포인트 충전
     @PostMapping("/charge")
@@ -24,7 +29,7 @@ public class PointController {
     public ApiResponse<PointResponse> pointCharge(@RequestBody PointRequest pointRequest){
 
         PointResponse response = new PointResponse(pointRequest.getUserId(), pointRequest.getPoint() );
-
+        log.info("response " +response);
         return ApiResponse.ok(response);
     }
 
@@ -37,7 +42,7 @@ public class PointController {
 
         int currentBalance = 10000;//실제로는 db에서 불러올 것
         PointResponse response = new PointResponse(userId, currentBalance);
-
+        log.info("response " +response);
         return ApiResponse.ok(response);
     }
 
