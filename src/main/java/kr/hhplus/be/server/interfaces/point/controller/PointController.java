@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RestControllerAdvice
-@RequestMapping("/api/vi/point")
+@Slf4j
+@RequestMapping("/api/v1/point")
 public class PointController {
 
-    private final Logger log = LoggerFactory.getLogger(getClass());
 
     //포인트 충전
     @PostMapping("/charge")
@@ -45,5 +45,4 @@ public class PointController {
         log.info("response " +response);
         return ApiResponse.ok(response);
     }
-
 }

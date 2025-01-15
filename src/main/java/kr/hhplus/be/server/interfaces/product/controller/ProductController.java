@@ -1,4 +1,39 @@
 package kr.hhplus.be.server.interfaces.product.controller;
 
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import kr.hhplus.be.server.interfaces.common.ApiResponse;
+import kr.hhplus.be.server.interfaces.product.dto.ProductRequest;
+import kr.hhplus.be.server.interfaces.product.dto.ProductResponse;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequiredArgsConstructor
+@RestControllerAdvice
+@Slf4j
+@RequestMapping("/api/v1/products")
 public class ProductController {
+
+    @GetMapping("/select")
+    @Tag(name = "상품 조회")
+    @Operation(summary = "상품 조회", description = "모든 상품을 조회 합니다.")
+    public ApiResponse<ProductResponse> productSelect(@RequestBody ProductRequest productRequest){
+
+        ProductResponse response = new ProductResponse();
+        log.info("response " +response);
+        return ApiResponse.ok(response);
+    }
+
+    @GetMapping("/rank")
+    @Tag(name = "Top5 조회")
+    @Operation(summary = "Top5 상품 조회", description = "최근3일간 5순위 상품을 조회 합니다.")
+    public ApiResponse<ProductResponse> top5Select(@RequestBody ProductRequest productRequest){
+
+        ProductResponse response = new ProductResponse();
+        log.info("response " +response);
+        return ApiResponse.ok(response);
+    }
 }
