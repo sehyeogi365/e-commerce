@@ -1,31 +1,23 @@
 package kr.hhplus.be.server.domain.error;
 
-import lombok.Builder;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 @Getter
-@Builder
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class ErrorResponse {
-    private final HttpStatus status;
-    private final String code;
-    private final String message;
+    private String code;
+    private String message;
 
-    public ErrorResponse(ErrorCode errorCode) {
-        this.status = errorCode.getStatus();
-        this.code = errorCode.name();
-        this.message = errorCode.getMessage();
-    }
-    public static ResponseEntity<ErrorResponse> error(CustomException e) {
-        return ResponseEntity
-                .status(e.getErrorCode().getStatus())
-                .body(ErrorResponse.builder()
-                        .status(e.getErrorCode().getStatus())
-                        .code(e.getErrorCode().name())
-                        .message(e.getErrorCode().getMessage())
-                        .build());
+    @Override
+    public String toString() {
+        return "ErrorResponse{" +
+                "code='" + code + '\'' +
+                ", message='" + message + '\'' +
+                '}';
     }
 }
