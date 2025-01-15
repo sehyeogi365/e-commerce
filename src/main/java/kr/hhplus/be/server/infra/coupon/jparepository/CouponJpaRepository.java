@@ -3,14 +3,12 @@ package kr.hhplus.be.server.infra.coupon.jparepository;
 import jakarta.persistence.LockModeType;
 import kr.hhplus.be.server.domain.coupon.entity.Coupon;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import kr.hhplus.be.server.domain.coupon.entity.UserCoupon;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,10 +35,10 @@ public interface CouponJpaRepository extends JpaRepository<Coupon, Long> {
 
     //쿠폰 발급
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    Coupon save(Coupon coupon);
+    UserCoupon save(@Param("id") long id, @Param("userId") int userId);
 
     //사용자 쿠폰 목록 조회
     @Query("SELECT c FROM UserCoupon c WHERE c.userId = :userId")
-    Optional<List<Coupon>> findByUserId(@Param("userId")int userId);
+    List<UserCoupon> findByUserId(@Param("userId")int userId);
 
 }

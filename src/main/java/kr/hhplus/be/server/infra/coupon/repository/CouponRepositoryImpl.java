@@ -2,11 +2,11 @@ package kr.hhplus.be.server.infra.coupon.repository;
 
 
 import kr.hhplus.be.server.domain.coupon.entity.Coupon;
+import kr.hhplus.be.server.domain.coupon.entity.UserCoupon;
 import kr.hhplus.be.server.domain.coupon.repository.CouponRepository;
 import kr.hhplus.be.server.infra.coupon.jparepository.CouponJpaRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,20 +41,24 @@ public class CouponRepositoryImpl implements CouponRepository {
 
     //쿠폰 발급
     @Override
-    public Coupon getCoupon(Coupon coupon) {
+    public UserCoupon getCoupon(long id, int userId) {
 
-        if(coupon == null){
+        if(id <= 0){
             throw new IllegalArgumentException("No coupons found");
         }
-        return couponJpaRepository.save(coupon);
+        if(userId <= 0){
+            throw new IllegalArgumentException("No users found");
+        }
+
+        return couponJpaRepository.save(id, userId);
     }
 
     //사용자 쿠폰 목록 조회
     @Override
-    public Optional<List<Coupon>> getUserCoupon(int userId) {
+    public List<UserCoupon> getUserCoupon(int userId) {
 
-        return Optional.ofNullable(couponJpaRepository.findByUserId(userId)
-                .orElseThrow(() -> new IllegalArgumentException("Coupons not found")));
+        return Optional.ofNullable(couponJpaRepository.findByUserId(userId))
+                .orElseThrow(() -> new IllegalArgumentException("Coupons not found"));
     }
 
 }

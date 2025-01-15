@@ -10,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RestControllerAdvice
@@ -20,9 +23,14 @@ public class ProductController {
     @GetMapping("/select")
     @Tag(name = "상품 조회")
     @Operation(summary = "상품 조회", description = "모든 상품을 조회 합니다.")
-    public ApiResponse<ProductResponse> productSelect(@RequestBody ProductRequest productRequest){
+    public ApiResponse<List<ProductResponse>> productSelect(@RequestBody ProductRequest productRequest){
 
-        ProductResponse response = new ProductResponse();
+        List<ProductResponse> response = new ArrayList<>();
+
+        response.add(new ProductResponse(1, "사과", 1000, 1));
+        response.add(new ProductResponse(2, "바나나", 1000, 2));
+        response.add(new ProductResponse(3, "배", 1000, 3));
+
         log.info("response " +response);
         return ApiResponse.ok(response);
     }
@@ -30,9 +38,14 @@ public class ProductController {
     @GetMapping("/rank")
     @Tag(name = "Top5 조회")
     @Operation(summary = "Top5 상품 조회", description = "최근3일간 5순위 상품을 조회 합니다.")
-    public ApiResponse<ProductResponse> top5Select(@RequestBody ProductRequest productRequest){
+    public ApiResponse<List<ProductResponse>> top5Select(@RequestBody ProductRequest productRequest){
 
-        ProductResponse response = new ProductResponse();
+        List<ProductResponse> response = new ArrayList<>();
+
+        response.add(new ProductResponse(1, "사과", 1000, 1));
+        response.add(new ProductResponse(2, "바나나", 1000, 2));
+        response.add(new ProductResponse(3, "배", 1000, 3));
+
         log.info("response " +response);
         return ApiResponse.ok(response);
     }
