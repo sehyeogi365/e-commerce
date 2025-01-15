@@ -20,13 +20,12 @@ import java.util.Optional;
 
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 @Transactional
 public class CouponService {
 
     private final CouponRepository couponRepository;//TODO: 생성자 or 롬복 주입 required..
-    private final Logger log = LoggerFactory.getLogger(getClass());
-
     //쿠폰 목록 조회
     public List<Coupon> getCouponList(){//메서드 명칭 변경 or 타입변경
         List<Coupon> coupons = couponRepository.getCoupons();
