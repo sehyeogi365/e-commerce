@@ -10,5 +10,4 @@ import lombok.NoArgsConstructor;
 public class PointResponse {
     private int userId;
     private int point;
-
 }
