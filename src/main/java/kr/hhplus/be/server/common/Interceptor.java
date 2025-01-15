@@ -23,6 +23,10 @@ public class Interceptor implements HandlerInterceptor {
         String uri = request.getRequestURI();
 
         if(userId == null) {//로그인 안 되었을때
+            if(uri.startsWith("/api/v1/product/")) {
+                return true;//못가게 하려면 폴스
+            }
+
             if(uri.startsWith("/api/v1/payment/")) {
                 return false;//못가게 하려면 폴스
             }
