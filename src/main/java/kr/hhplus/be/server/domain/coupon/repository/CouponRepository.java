@@ -1,6 +1,7 @@
 package kr.hhplus.be.server.domain.coupon.repository;
 
 import kr.hhplus.be.server.domain.coupon.entity.Coupon;
+import kr.hhplus.be.server.domain.coupon.entity.UserCoupon;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -21,9 +22,9 @@ public interface CouponRepository {
     void useCoupon(long id);
 
     //쿠폰 발급
-    Coupon getCoupon(Coupon coupon);
+    UserCoupon getCoupon(long id, int userId);
 
     //사용자 쿠폰 목록 조회
-    Optional<List<Coupon>> getUserCoupon(int userId);
+    List<UserCoupon> getUserCoupon(int userId);
 
 }

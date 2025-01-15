@@ -1,6 +1,7 @@
 package kr.hhplus.be.server.domain.coupon.service;
 
 import kr.hhplus.be.server.domain.coupon.entity.Coupon;
+import kr.hhplus.be.server.domain.coupon.entity.UserCoupon;
 import kr.hhplus.be.server.domain.coupon.repository.CouponRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -28,17 +29,16 @@ public class CouponService {
     private final CouponRepository couponRepository;//TODO: 생성자 or 롬복 주입 required..
     //쿠폰 목록 조회
     public List<Coupon> getCouponList(){//메서드 명칭 변경 or 타입변경
-        List<Coupon> coupons = couponRepository.getCoupons();
         return couponRepository.getCoupons();
     }
 
     //쿠폰 발급
-    public Coupon getCoupon(Coupon coupon){
+    public UserCoupon getCoupon(long id, int userId){
 
         LocalDate today = LocalDate.now();
 
         //쿠폰 한행
-        Optional<Coupon> optionalCoupon = couponRepository.getCouponInfo(coupon.getId());
+        Optional<Coupon> optionalCoupon = couponRepository.getCouponInfo(id);
 
         //쿠폰 있는지 없는지 여부 판별
         if(optionalCoupon.isEmpty()){
@@ -54,12 +54,11 @@ public class CouponService {
             throw new IllegalStateException("Over Expiration Date");
         }
 
-        return couponRepository.getCoupon(coupon);
-
+        return couponRepository.getCoupon(id, userId);
     }
 
     //사용자 쿠폰 목록 조회
-    public Optional<List<Coupon>> getUserCoupon(int userId){
+    public List<UserCoupon> getUserCoupon(int userId){
         log.info(String.valueOf(userId));
         return couponRepository.getUserCoupon(userId);//impl에서 쿠폰 있는지 없는지 로직처리
     }
