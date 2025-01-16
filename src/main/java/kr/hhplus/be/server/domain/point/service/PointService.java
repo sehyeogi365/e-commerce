@@ -1,7 +1,10 @@
 package kr.hhplus.be.server.domain.point.service;
 
+import kr.hhplus.be.server.domain.error.CustomException;
+import kr.hhplus.be.server.domain.error.ErrorCode;
 import kr.hhplus.be.server.domain.point.entity.Point;
 import kr.hhplus.be.server.domain.point.repository.PointRepository;
+import kr.hhplus.be.server.interfaces.point.dto.PointResponse;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
@@ -17,8 +20,9 @@ public class PointService {
     private final PointRepository pointRepository;
 
     //포인트 조회
-    public Point getUserPoint(int userId){
-        return pointRepository.getUserPoint(userId);
+    public PointResponse getUserPoint(int userId){
+        Point point = pointRepository.getUserPoint(userId);
+        return new PointResponse(userId, point.getPoint());
     }
 
     //잔액 충전
@@ -26,7 +30,7 @@ public class PointService {
 
         //0포인트 충전시, 10000단위가 아닐시, 백만포인트 이상 보유시, 충전이후 백만포인트 초과시 등등,
         if(pointRepository.chargePoint(userId, point) <= 0) {
-            throw new IllegalArgumentException("포인트 부족");
+            throw new CustomException(ErrorCode.POINT_NOT_FOUND);
         }
 
         if(pointRepository.chargePoint(userId, point) % 10000 != 0){

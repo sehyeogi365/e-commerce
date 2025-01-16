@@ -2,6 +2,7 @@ package kr.hhplus.be.server.domain.point.service;
 
 import kr.hhplus.be.server.domain.point.entity.Point;
 import kr.hhplus.be.server.domain.point.repository.PointRepository;
+import kr.hhplus.be.server.interfaces.point.dto.PointResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,7 +37,7 @@ class PointServiceTest {
 
         //When
         when(pointRepository.getUserPoint(userId)).thenReturn(point);
-        Point result = pointService.getUserPoint(userId);
+        PointResponse result = pointService.getUserPoint(userId);
 
         //Then
         assertThat(result).isNotNull();
@@ -60,7 +61,7 @@ class PointServiceTest {
         //When
         when(pointRepository.chargePoint(1, 10000)).thenReturn(point.getPoint());
 
-        Point result = pointService.getUserPoint(userId);
+        PointResponse result = pointService.getUserPoint(userId);
 
         //Then
         assertThat(result).isNotNull();
