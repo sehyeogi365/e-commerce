@@ -16,13 +16,13 @@ public interface CouponRepository {
     List<Coupon> getCoupons();
 
     //쿠폰 한행 조회
-    Optional<Coupon> getCouponInfo(long id);
+    Coupon getCouponInfo(long id);
 
     //쿠폰 사용
     void useCoupon(long id);
 
     //쿠폰 발급
-    UserCoupon getCoupon(long id, int userId);
+    UserCoupon getCoupon(int couponId, int userId);
 
     //사용자 쿠폰 목록 조회
     List<UserCoupon> getUserCoupon(int userId);

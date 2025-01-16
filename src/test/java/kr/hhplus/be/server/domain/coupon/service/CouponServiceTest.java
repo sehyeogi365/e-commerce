@@ -5,6 +5,8 @@ import kr.hhplus.be.server.domain.coupon.entity.UserCoupon;
 import kr.hhplus.be.server.domain.coupon.repository.CouponRepository;
 
 import kr.hhplus.be.server.domain.point.entity.Point;
+import kr.hhplus.be.server.interfaces.coupon.dto.CouponResponse;
+import kr.hhplus.be.server.interfaces.coupon.dto.UserCouponResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,7 +42,7 @@ class CouponServiceTest {
         Date expirationDate = dateFormat.parse(dateString);
         Coupon coupon = Coupon.builder().id(1).percent(20).expirationDate(expirationDate).quantity(1).build();
 
-        List<Coupon> coupnList = couponService.getCouponList();
+        List<CouponResponse> coupnList = couponService.getCouponList();
 
         //when
         when(coupnList).thenReturn(couponService.getCouponList());
@@ -58,15 +60,16 @@ class CouponServiceTest {
         Date expirationDate = dateFormat.parse(dateString);
         long id = 1L;
         int userId = 1;
+        int couponId = 1;
 
         UserCoupon userCoupon = UserCoupon.builder().
-                                        id(id).userId(userId).couponId(1).build();
+                                        id(id).userId(userId).couponId(couponId).build();
         //when
-        couponService.getCoupon(id, userId);
-        when(couponRepository.getCoupon(id, userId)).thenReturn(userCoupon);
-        List<UserCoupon> result = couponService.getUserCoupon(userId);
+        couponService.getCoupon(couponId, userId);
+        when(couponRepository.getCoupon(couponId, userId)).thenReturn(userCoupon);
+        List<UserCouponResponse> result = couponService.getUserCoupon(userId);
         //then
-        assertThat(result.get(0).getId()).isEqualTo(id);
+        assertThat(result.get(0).getCouponId()).isEqualTo(couponId);
         assertThat(result.get(0).getUserId()).isEqualTo(userId);
     }
 

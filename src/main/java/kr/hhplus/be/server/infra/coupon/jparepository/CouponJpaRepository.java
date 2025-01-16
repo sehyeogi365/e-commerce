@@ -25,7 +25,7 @@ public interface CouponJpaRepository extends JpaRepository<Coupon, Long> {
     //쿠폰 한행 조회
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT c FROM Coupon c WHERE c.id = :id")
-    Optional<Coupon> findById(@Param("id") long id);
+    Coupon findById(@Param("id") long id);
 
     //쿠폰 사용
     @Lock(LockModeType.PESSIMISTIC_WRITE)
@@ -35,7 +35,7 @@ public interface CouponJpaRepository extends JpaRepository<Coupon, Long> {
 
     //쿠폰 발급
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    UserCoupon save(@Param("id") long id, @Param("userId") int userId);
+    UserCoupon save(@Param("couponId") int couponId, @Param("userId") int userId);
 
     //사용자 쿠폰 목록 조회
     @Query("SELECT c FROM UserCoupon c WHERE c.userId = :userId")

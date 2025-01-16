@@ -4,6 +4,8 @@ package kr.hhplus.be.server.infra.coupon.repository;
 import kr.hhplus.be.server.domain.coupon.entity.Coupon;
 import kr.hhplus.be.server.domain.coupon.entity.UserCoupon;
 import kr.hhplus.be.server.domain.coupon.repository.CouponRepository;
+import kr.hhplus.be.server.domain.error.CustomException;
+import kr.hhplus.be.server.domain.error.ErrorCode;
 import kr.hhplus.be.server.infra.coupon.jparepository.CouponJpaRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -29,7 +31,7 @@ public class CouponRepositoryImpl implements CouponRepository {
 
     //쿠폰 한행 조회
     @Override
-    public Optional<Coupon> getCouponInfo(long id){
+    public Coupon getCouponInfo(long id){
         return couponJpaRepository.findById(id);
     }
 
@@ -41,16 +43,16 @@ public class CouponRepositoryImpl implements CouponRepository {
 
     //쿠폰 발급
     @Override
-    public UserCoupon getCoupon(long id, int userId) {
+    public UserCoupon getCoupon(int couponId, int userId) {
 
-        if(id <= 0){
-            throw new IllegalArgumentException("No coupons found");
+        if(couponId <= 0){
+            throw new CustomException(ErrorCode.COUPON_NOT_FOUND);
         }
         if(userId <= 0){
             throw new IllegalArgumentException("No users found");
         }
 
-        return couponJpaRepository.save(id, userId);
+        return couponJpaRepository.save(couponId, userId);
     }
 
     //사용자 쿠폰 목록 조회
