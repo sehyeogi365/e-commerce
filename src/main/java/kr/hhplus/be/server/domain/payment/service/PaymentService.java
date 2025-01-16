@@ -39,28 +39,52 @@ public class PaymentService {
         // 상품 정보 조회 -> 데이터가 존재하면 차감 데이터가 없으면 예외처리 수량이 없어서 결제 실패
         Product product = productRepository.findById(payment.getProductId());
 
-        PaymentResponse response = new PaymentResponse(payment.getId(), payment.getOrderId());
-
         if(product == null){
             throw new CustomException(ErrorCode.ITEM_NOT_FOUND);
         }
 
+        int originPrice = calculateOriginPrice(product.getQuantity(), product.getPrice());
+
         // 쿠폰 정보 확인 및 수량 차감
-        Coupon coupon = couponRepository.getCouponInfo(payment.getCouponId());
+        int discountPrice = 0;
 
-        if(coupon == null){
-            throw new CustomException(ErrorCode.COUPON_NOT_FOUND);
+        if(payment.getCouponId() <=0){//쿠폰 적용 + 가격 감소
+            Coupon coupon = couponRepository.getCouponInfo(payment.getCouponId());
+
+            if (coupon == null) {
+                throw new CustomException(ErrorCode.COUPON_NOT_FOUND);
+            }
+            discountPrice = calculateDiscountPrice(originPrice, coupon.getPercent());
+            couponRepository.useCoupon(payment.getCouponId());
         }
+        //쿠폰 없을시 원래가격 계산
+        //결제 정보 저장
+        Payment.builder().id(payment.getId())
+                .userId(payment.getUserId())
+                .orderId(payment.getOrderId())
+                .couponId(payment.getCouponId())
+                .productId(payment.getProductId())
+                .statement(payment.getStatement())
+                .originPrice(originPrice)
+                .discountPrice(discountPrice).build();
 
-        //쿠폰 적용시 가격 감소
+        Payment savedPayment = paymentRepository.save(payment);
 
         //판매량 수량 추가
-        productRepository.ProductSalesIncrease(payment.getProductId());
+        productRepository.ProductSalesIncrease(savedPayment.getProductId());
 
-        //결제 정보 저장
-        return response;
+        return new PaymentResponse(savedPayment.getId(), savedPayment.getOrderId());
     }
 
+    //원가 계산
+    public Integer calculateOriginPrice(int quantity, int price) {
+        return quantity * price;
+    }
+
+    //할인 가격 계산
+    public Integer calculateDiscountPrice(int originPrice, int percent) {
+        return (originPrice * (100- percent) / 100);
+    }
 
     //결제 내역 조회
     public List<PaymentResponse> getPaymentList(int userId) {
