@@ -16,11 +16,11 @@ public interface PaymentJpaRepository extends JpaRepository<Payment, Long> {
     Payment save(Payment payment);
 
     //OriginPrice 계산
-    Integer originPrice(int quantity, int price);
-
-
-    //DisCountPrice 계산
-    Integer discountPrice(int originPrice, int percent);
+//    Integer originPrice(int quantity, int price);
+//
+//
+//    //DisCountPrice 계산
+//    Integer discountPrice(int originPrice, int percent);
 
     //결제내역 조회
     List<Payment> findByUserId(int userId);

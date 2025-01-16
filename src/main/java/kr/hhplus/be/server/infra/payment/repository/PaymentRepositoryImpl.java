@@ -24,15 +24,15 @@ public class PaymentRepositoryImpl implements PaymentRepository{
     }
 
     //OriginPrice 계산
-    @Override
-    public Integer originPrice(int quantity, int price){
-       return paymentJpaRepository.originPrice(quantity, price);
-    }
-    //DisCountPrice 계산
-    @Override
-    public Integer discountPrice(int originPrice, int percent){
-        return paymentJpaRepository.discountPrice(originPrice, percent);
-    }
+//    @Override
+//    public Integer originPrice(int quantity, int price){
+//       return paymentJpaRepository.originPrice(quantity, price);
+//    }
+//    //DisCountPrice 계산
+//    @Override
+//    public Integer discountPrice(int originPrice, int percent){
+//        return paymentJpaRepository.discountPrice(originPrice, percent);
+//    }
 
     //결제내역 조회
     @Override
