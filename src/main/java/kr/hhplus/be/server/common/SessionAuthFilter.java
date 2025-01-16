@@ -4,11 +4,13 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 @Component
+@Slf4j
 public class SessionAuthFilter implements Filter {
 
     @Override
@@ -26,6 +28,7 @@ public class SessionAuthFilter implements Filter {
             if (uri.startsWith("/api/v1/point/**")) { // 보호된 API 경로
                 httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 httpResponse.getWriter().write("Unauthorized: Please log in.");
+                log.info("uri" + uri);
                 return;
             }
         }
@@ -34,6 +37,7 @@ public class SessionAuthFilter implements Filter {
             if (uri.startsWith("/api/v1/payment/**")) { // 보호된 API 경로
                 httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 httpResponse.getWriter().write("Unauthorized: Please log in.");
+                log.info("uri" + uri);
                 return;
             }
         }
@@ -42,6 +46,7 @@ public class SessionAuthFilter implements Filter {
             if (uri.startsWith("/api/v1/orders/**")) { // 보호된 API 경로
                 httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 httpResponse.getWriter().write("Unauthorized: Please log in.");
+                log.info("uri" + uri);
                 return;
             }
         }
@@ -50,6 +55,7 @@ public class SessionAuthFilter implements Filter {
             if (uri.startsWith("/api/v1/coupons/**")) { // 보호된 API 경로
                 httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 httpResponse.getWriter().write("Unauthorized: Please log in.");
+                log.info("uri" + uri);
                 return;
             }
         }
