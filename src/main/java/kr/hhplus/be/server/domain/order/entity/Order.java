@@ -32,5 +32,4 @@ public class Order extends BaseTimeEntity {
 
     @Column(name="discountPrice")
     private int discountPrice;
-
 }
