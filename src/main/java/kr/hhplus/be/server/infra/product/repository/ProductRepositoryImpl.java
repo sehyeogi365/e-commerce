@@ -28,7 +28,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     //상품 1행 정보 조회
     @Override
-    public Optional<Product> findById(long id) {
+    public Product findById(long id) {
         return productJpaRepository.findById(id);
     }
 
