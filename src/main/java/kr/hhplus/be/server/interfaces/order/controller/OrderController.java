@@ -3,6 +3,8 @@ package kr.hhplus.be.server.interfaces.order.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import kr.hhplus.be.server.domain.order.entity.Order;
+import kr.hhplus.be.server.domain.order.service.OrderService;
 import kr.hhplus.be.server.interfaces.common.ApiResponse;
 import kr.hhplus.be.server.interfaces.order.dto.OrderRequest;
 import kr.hhplus.be.server.interfaces.order.dto.OrderResponse;
@@ -10,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,12 +21,21 @@ import java.util.List;
 @RequestMapping("/api/v1/orders")
 public class OrderController {
 
+    private final OrderService orderService;
+
     @PostMapping("/")
     @Tag(name = "주문")
     @Operation(summary = "주문", description = "상품을 주문 합니다.")
     public ApiResponse<OrderResponse> orderInsert(@RequestBody OrderRequest orderRequest){
 
-        OrderResponse response = new OrderResponse(1, 1, 1, 1);
+        Order order = Order.builder()
+                .id(orderRequest.getId())
+                .userId(orderRequest.getUserId())
+                .couponId(orderRequest.getCouponId())
+                .productId(orderRequest.getProductId())
+                .build();
+        // 주문 처리order
+        OrderResponse response = orderService.orderProduct(order);
 
         log.info("response " +response);
         return ApiResponse.ok(response);
@@ -34,12 +44,9 @@ public class OrderController {
     @GetMapping("/{userId}")
     @Tag(name = "주문 조회")
     @Operation(summary = "주문 조회", description = "주문 상품을 조회 합니다.")
-    public ApiResponse<List<OrderResponse>> orderSelect(@RequestBody OrderRequest orderRequest){
+    public ApiResponse<List<OrderResponse>> orderSelect(@PathVariable("userId") int userId){
 
-        List<OrderResponse> response = new ArrayList<>();
-        response.add(new OrderResponse(1, 1, 1, 1));
-        response.add(new OrderResponse(2, 1, 1, 2));
-        response.add(new OrderResponse(3, 1, 1, 3));
+        List<OrderResponse> response = orderService.getOrderList(userId);
 
         log.info("response " +response);
         return ApiResponse.ok(response);
