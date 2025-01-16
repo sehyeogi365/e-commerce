@@ -24,7 +24,7 @@ public interface ProductJpaRepository extends JpaRepository<Product, Long> {
     //상품 1행정보 조회
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT p FROM Product p where p.id = :id")
-    Optional<Product> findById(@Param("id") long id);
+    Product findById(@Param("id") long id);
 
     //판매 수량 증가
     @Lock(LockModeType.PESSIMISTIC_WRITE)

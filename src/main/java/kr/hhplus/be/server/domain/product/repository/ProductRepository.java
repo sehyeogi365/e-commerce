@@ -15,7 +15,7 @@ public interface ProductRepository {
     List<Product> getProducts();
 
     //상품 1행 정보 조회
-    Optional<Product> findById(long id);
+    Product findById(long id);
 
     //판매수량 증가
     void ProductSalesIncrease(int productId);

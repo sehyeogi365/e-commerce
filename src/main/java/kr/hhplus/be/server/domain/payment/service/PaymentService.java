@@ -37,15 +37,11 @@ public class PaymentService {
     public PaymentResponse addPayment(Payment payment){
         // 상품 정보 확인 및 수량 차감
         // 상품 정보 조회 -> 데이터가 존재하면 차감 데이터가 없으면 예외처리 수량이 없어서 결제 실패
-        Optional<Product> product = productRepository.findById(payment.getProductId());
+        Product product = productRepository.findById(payment.getProductId());
 
         PaymentResponse response = new PaymentResponse(payment.getId(), payment.getOrderId());
 
-        productRepository.productQuantityDecrease(
-                product.orElseThrow(() -> new IllegalStateException("Product not found")).getId()
-        );
-
-        if(product.isEmpty()){
+        if(product == null){
             throw new CustomException(ErrorCode.ITEM_NOT_FOUND);
         }
 
