@@ -8,8 +8,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.io.IOException;
 
-import static java.rmi.server.LogStream.log;
-
 @Slf4j
 public class Interceptor implements HandlerInterceptor {
 
