@@ -19,7 +19,7 @@ public interface ProductJpaRepository extends JpaRepository<Product, Long> {
     //상품 조회
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT p FROM Product p ")
-    Page<Product> findAll(Pageable pageable);
+    List<Product> findAll();
 
     //상품 1행정보 조회
     @Lock(LockModeType.PESSIMISTIC_WRITE)

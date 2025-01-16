@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface ProductRepository {
 
     //상품 조회
-    Page<Product> getProducts(Pageable pageable);
+    List<Product> getProducts();
 
     //상품 1행 정보 조회
     Optional<Product> findById(long id);

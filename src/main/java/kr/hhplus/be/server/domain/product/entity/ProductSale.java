@@ -1,6 +1,7 @@
 package kr.hhplus.be.server.domain.product.entity;
 
 import jakarta.persistence.*;
+import kr.hhplus.be.server.domain.common.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="product_sales")
-public class ProductSale {
+public class ProductSale extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

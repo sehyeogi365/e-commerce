@@ -20,16 +20,10 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     private final ProductJpaRepository productJpaRepository;
 
-
     //상품 조회
     @Override
-    public Page<Product> getProducts(Pageable pageable) {
-
-      Page<Product> products = productJpaRepository.findAll(pageable);
-      if(products == null){
-          throw new IllegalArgumentException("Product not found");
-      }
-      return productJpaRepository.findAll(pageable);
+    public List<Product> getProducts() {
+      return productJpaRepository.findAll();
     }
 
     //상품 1행 정보 조회
