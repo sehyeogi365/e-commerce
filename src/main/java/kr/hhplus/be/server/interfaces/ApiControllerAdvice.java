@@ -2,6 +2,7 @@ package kr.hhplus.be.server.interfaces;
 
 
 
+import kr.hhplus.be.server.domain.error.CustomException;
 import kr.hhplus.be.server.domain.error.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +15,19 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 class ApiControllerAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception e) {
+        logger.error("Unhandled exception occurred: ", e);
         return ResponseEntity.status(500).body(new ErrorResponse("500", "에러가 발생했습니다."));
     }
 
     @ExceptionHandler(IllegalStateException.class)
     public ResponseEntity<ErrorResponse> handleIllegalStateException(IllegalStateException e) {
+        logger.error("Unhandled exception occurred: ", e);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("400", e.getMessage()));
     }
 
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler(CustomException.class)
     public ResponseEntity<ErrorResponse> handleRuntimeException(RuntimeException e) {
+        logger.error("Unhandled exception occurred: ", e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("500", "서버 내부 오류가 발생했습니다."));
     }
 
