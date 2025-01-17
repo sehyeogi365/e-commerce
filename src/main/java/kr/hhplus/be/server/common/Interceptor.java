@@ -39,12 +39,12 @@ public class Interceptor implements HandlerInterceptor {
                 return false;
             }
 
-            if(uri.startsWith("/api/v1/coupons/receive")) {
+            if(uri.startsWith("/api/v1/coupons/")) {
                 log.info("로그인후 접속해주시길 바랍니다." + uri);
                 return false;
             }
 
-            if(uri.startsWith("/api/v1/coupons/")) {
+            if(uri.startsWith("/api/v1/point/")) {
                 log.info("로그인후 접속해주시길 바랍니다." + uri);
                 return false;
             }
