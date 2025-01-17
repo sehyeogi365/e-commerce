@@ -9,6 +9,7 @@ import kr.hhplus.be.server.domain.payment.entity.Payment;
 import kr.hhplus.be.server.domain.payment.repository.PaymentRepository;
 
 
+import kr.hhplus.be.server.domain.point.repository.PointRepository;
 import kr.hhplus.be.server.domain.product.entity.Product;
 import kr.hhplus.be.server.domain.product.repository.ProductRepository;
 import kr.hhplus.be.server.interfaces.payment.dto.PaymentResponse;
@@ -32,6 +33,7 @@ public class PaymentService {
     private final PaymentRepository paymentRepository;
     private final ProductRepository productRepository;
     private final CouponRepository couponRepository;
+    private  final PointRepository pointRepository;
     //결제하기
     @Transactional
     public PaymentResponse addPayment(Payment payment){
@@ -48,7 +50,7 @@ public class PaymentService {
         // 쿠폰 정보 확인 및 수량 차감
         int discountPrice = 0;
 
-        if(payment.getCouponId() <=0){//쿠폰 적용 + 가격 감소
+        if(payment.getCouponId() > 0){//쿠폰 적용 + 가격 감소
             Coupon coupon = couponRepository.getCouponInfo(payment.getCouponId());
 
             if (coupon == null) {
@@ -56,6 +58,10 @@ public class PaymentService {
             }
             discountPrice = calculateDiscountPrice(originPrice, coupon.getPercent());
             couponRepository.useCoupon(payment.getCouponId());
+            //포인트 차감
+            pointRepository.usePoint(payment.getUserId(), discountPrice);
+        } else {
+            pointRepository.usePoint(payment.getUserId(), originPrice);
         }
         //쿠폰 없을시 원래가격 계산
         //결제 정보 저장
@@ -75,6 +81,8 @@ public class PaymentService {
 
         return new PaymentResponse(savedPayment.getId(), savedPayment.getOrderId());
     }
+
+    // 2. 쿠폰 및 포인트 처리,  3. 결제 정보 저장을 분리해보기 위의 메서드에서 나중에
 
     //원가 계산
     public Integer calculateOriginPrice(int quantity, int price) {

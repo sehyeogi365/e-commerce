@@ -9,4 +9,7 @@ public interface PointRepository {
 
     //잔액 충전
     Integer chargePoint(int userId, int point);
+
+    //포인트 차감
+    Integer usePoint(int userId, int point);
 }

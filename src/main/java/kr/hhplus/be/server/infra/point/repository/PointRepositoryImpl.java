@@ -22,4 +22,9 @@ public class PointRepositoryImpl implements PointRepository {
         return pointJpaRepository.chargePoint(userId, point);
     }
 
+    @Override
+    public Integer usePoint(int userId, int point) {
+        return pointJpaRepository.usePoint(userId, point);
+    }
+
 }
