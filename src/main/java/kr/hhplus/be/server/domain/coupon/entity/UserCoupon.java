@@ -2,6 +2,8 @@ package kr.hhplus.be.server.domain.coupon.entity;
 
 import jakarta.persistence.*;
 import kr.hhplus.be.server.domain.common.BaseTimeEntity;
+import kr.hhplus.be.server.domain.coupon.enums.CouponStatus;
+import kr.hhplus.be.server.domain.order.enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,4 +25,7 @@ public class UserCoupon extends BaseTimeEntity {
 
     @Column(name="couponId")
     private int couponId;
+
+    @Enumerated
+    private CouponStatus couponStatus;
 }
