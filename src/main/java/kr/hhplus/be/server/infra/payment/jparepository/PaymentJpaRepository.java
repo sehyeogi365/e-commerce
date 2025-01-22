@@ -23,5 +23,6 @@ public interface PaymentJpaRepository extends JpaRepository<Payment, Long> {
 //    Integer discountPrice(int originPrice, int percent);
 
     //결제내역 조회
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
     List<Payment> findByUserId(int userId);
 }

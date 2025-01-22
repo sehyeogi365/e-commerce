@@ -11,10 +11,12 @@ import org.springframework.data.repository.query.Param;
 public interface PointJpaRepository extends JpaRepository<Point, Long> {
 
     //포인트 조회
+    @Lock(LockModeType.OPTIMISTIC_FORCE_INCREMENT)
     Point findByUserId(int userId);
 
     //잔액 충전
     @Modifying
+    @Lock(LockModeType.OPTIMISTIC_FORCE_INCREMENT)
     @Query(value = "Update Point p SET p.point = p.point + :point WHERE p.userId = :userId", nativeQuery = true)
     Integer chargePoint(@Param("userId") int userId, @Param("point") int point);
 
