@@ -2,6 +2,7 @@ package kr.hhplus.be.server.domain.payment.entity;
 
 import jakarta.persistence.*;
 import kr.hhplus.be.server.domain.common.BaseTimeEntity;
+import kr.hhplus.be.server.domain.payment.enums.PaymentStatus;
 import lombok.*;
 
 @Entity
@@ -27,8 +28,8 @@ public class Payment extends BaseTimeEntity {
     @Column(name="couponId")
     private int couponId;
 
-    @Column(name="statement")
-    private String statement;
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus paymentStatus;
 
     @Column(name="originPrice")
     private int originPrice;
