@@ -22,6 +22,7 @@ public interface OrderJpaRepository extends JpaRepository<Order, Long> {
     Product findById(@Param("id") long id);
 
     //주문 목록 조회
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
     List<Order> findByUserId(@Param("userId") int userId);
 
 }
