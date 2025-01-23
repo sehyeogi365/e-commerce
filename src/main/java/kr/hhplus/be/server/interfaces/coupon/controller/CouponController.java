@@ -3,6 +3,7 @@ package kr.hhplus.be.server.interfaces.coupon.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import kr.hhplus.be.server.domain.coupon.entity.UserCoupon;
 import kr.hhplus.be.server.domain.coupon.service.CouponService;
 import kr.hhplus.be.server.interfaces.common.ApiResponse;
 import kr.hhplus.be.server.interfaces.coupon.dto.CouponRequest;
@@ -38,9 +39,9 @@ public class CouponController {
     @PostMapping("/receive")
     @Tag(name = "쿠폰 발급")
     @Operation(summary = "쿠폰 발급", description = "쿠폰을 발급 합니다.")
-    public ApiResponse<UserCouponResponse> couponReceive(int couponId, int userId){
+    public ApiResponse<UserCouponResponse> couponReceive(UserCoupon userCoupon){
 
-        UserCouponResponse response = couponService.getCoupon(couponId, userId);
+        UserCouponResponse response = couponService.getCoupon(userCoupon);
 
         log.info("response " +response);
         return ApiResponse.ok(response);

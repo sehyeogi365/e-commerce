@@ -2,6 +2,7 @@ package kr.hhplus.be.server.domain.coupon.service;
 
 import kr.hhplus.be.server.domain.coupon.entity.Coupon;
 import kr.hhplus.be.server.domain.coupon.entity.UserCoupon;
+import kr.hhplus.be.server.domain.coupon.enums.CouponStatus;
 import kr.hhplus.be.server.domain.coupon.repository.CouponRepository;
 
 import kr.hhplus.be.server.domain.point.entity.Point;
@@ -63,10 +64,10 @@ class CouponServiceTest {
         int couponId = 1;
 
         UserCoupon userCoupon = UserCoupon.builder().
-                                        id(id).userId(userId).couponId(couponId).build();
+                                        id(id).userId(userId).couponId(couponId).couponStatus(CouponStatus.USED).build();
         //when
-        couponService.getCoupon(couponId, userId);
-        when(couponRepository.getCoupon(couponId, userId)).thenReturn(userCoupon);
+        couponService.getCoupon(userCoupon);
+        when(couponRepository.getCoupon(userCoupon)).thenReturn(userCoupon);
         List<UserCouponResponse> result = couponService.getUserCoupon(userId);
         //then
         assertThat(result.get(0).getCouponId()).isEqualTo(couponId);

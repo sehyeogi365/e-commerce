@@ -33,9 +33,7 @@ public interface CouponJpaRepository extends JpaRepository<Coupon, Long> {
     @Query("UPDATE Coupon c SET c.quantity = c.quantity - 1 WHERE c.id = :id AND c.quantity > 0")
     void useCoupon(@Param("id") long id);
 
-    //쿠폰 발급
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
-    UserCoupon save(@Param("couponId") int couponId, @Param("userId") int userId);
+
 
     //사용자 쿠폰 목록 조회
     @Query("SELECT c FROM UserCoupon c WHERE c.userId = :userId")

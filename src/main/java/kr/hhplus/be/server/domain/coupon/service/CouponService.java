@@ -48,14 +48,13 @@ public class CouponService {
     }
 
     //쿠폰 발급
-    public UserCouponResponse getCoupon(int couponId, int userId){
+    public UserCouponResponse getCoupon(UserCoupon userCoupon){
 
         LocalDate today = LocalDate.now();
 
-        UserCoupon userCoupon = couponRepository.getCoupon(couponId, userId);
-
         //쿠폰 한행
-        Coupon optionalCoupon = couponRepository.getCouponInfo(couponId);
+        Coupon coupon = new Coupon();
+        Coupon optionalCoupon = couponRepository.getCouponInfo(coupon.getId());
 
         //쿠폰 있는지 없는지 여부 판별
         if(optionalCoupon == null){

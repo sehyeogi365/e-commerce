@@ -61,16 +61,16 @@ public class PaymentService {
         }
         //쿠폰 없을시 원래가격 계산
         //결제 정보 저장
-        Payment.builder().id(payment.getId())
+        Payment newPayment = Payment.builder().id(payment.getId())
                 .userId(payment.getUserId())
                 .orderId(payment.getOrderId())
                 .couponId(payment.getCouponId())
                 .productId(payment.getProductId())
-                .statement(payment.getStatement())
+                .paymentStatus(payment.getPaymentStatus())
                 .originPrice(originPrice)
                 .discountPrice(discountPrice).build();
 
-        Payment savedPayment = paymentRepository.save(payment);
+        Payment savedPayment = paymentRepository.save(newPayment);
 
         //판매량 수량 추가
         productRepository.ProductSalesIncrease(savedPayment.getProductId());

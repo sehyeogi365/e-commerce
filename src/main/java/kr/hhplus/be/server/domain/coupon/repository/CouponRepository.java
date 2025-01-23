@@ -22,7 +22,7 @@ public interface CouponRepository {
     void useCoupon(long id);
 
     //쿠폰 발급
-    UserCoupon getCoupon(int couponId, int userId);
+    UserCoupon getCoupon(UserCoupon userCoupon);
 
     //사용자 쿠폰 목록 조회
     List<UserCoupon> getUserCoupon(int userId);
