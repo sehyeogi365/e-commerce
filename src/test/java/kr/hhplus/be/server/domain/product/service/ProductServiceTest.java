@@ -1,5 +1,7 @@
 package kr.hhplus.be.server.domain.product.service;
 
+import kr.hhplus.be.server.domain.error.CustomException;
+import kr.hhplus.be.server.domain.error.ErrorCode;
 import kr.hhplus.be.server.domain.product.entity.Product;
 import kr.hhplus.be.server.domain.product.entity.ProductSale;
 import kr.hhplus.be.server.domain.product.repository.ProductRepository;
@@ -16,10 +18,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 
@@ -57,6 +61,30 @@ class ProductServiceTest {
         assertThat(result).isNotNull();
         assertThat(result.size()).isEqualTo(1);
     }
+
+    @Test
+    @DisplayName("상품 조회 실패")
+    void 상품_조회_실패(){
+        //given
+        long id = 1L;
+        String name = "사과";
+        int price = 1000;
+        int quantity = 1;
+        Product product = new Product();
+
+        List<Product> mockProduct = List.of(product);
+
+        //when
+        when(productRepository.getProducts()).thenReturn(Collections.emptyList());
+        List<ProductResponse> result = productService.getProducts();
+
+        //then
+        //assertThat(result).isNotNull();
+        assertThatThrownBy(() -> productService.getProducts()) // 예외가 발생해야 함
+                .isInstanceOf(CustomException.class) // CustomException 발생 예상
+                .hasMessage(ErrorCode.ITEM_NOT_FOUND.getMessage());
+    }
+
 
     @Test
     @DisplayName("Top5 상품 조회")
