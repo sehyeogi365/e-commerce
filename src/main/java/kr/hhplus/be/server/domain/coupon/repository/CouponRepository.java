@@ -18,13 +18,15 @@ public interface CouponRepository {
     //쿠폰 한행 조회
     Coupon getCouponInfo(long id);
 
-    //쿠폰 사용
-    void useCoupon(long id);
+    //쿠폰 수량 차감
+    void deductCoupon(long id);
 
     //쿠폰 발급
-    UserCoupon getCoupon(UserCoupon userCoupon);
+    UserCoupon issueCoupon(UserCoupon userCoupon);
 
     //사용자 쿠폰 목록 조회
     List<UserCoupon> getUserCoupon(int userId);
 
+    //쿠폰 사용
+    void useCoupon(long id);
 }

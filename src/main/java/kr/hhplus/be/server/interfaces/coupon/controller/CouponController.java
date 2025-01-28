@@ -41,7 +41,7 @@ public class CouponController {
     @Operation(summary = "쿠폰 발급", description = "쿠폰을 발급 합니다.")
     public ApiResponse<UserCouponResponse> couponReceive(UserCoupon userCoupon){
 
-        UserCouponResponse response = couponService.getCoupon(userCoupon);
+        UserCouponResponse response = couponService.issueCoupon(userCoupon);
 
         log.info("response " +response);
         return ApiResponse.ok(response);

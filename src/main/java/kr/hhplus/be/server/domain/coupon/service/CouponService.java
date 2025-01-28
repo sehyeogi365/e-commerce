@@ -35,7 +35,6 @@ public class CouponService {
     private final CouponRepository couponRepository;//TODO: 생성자 or 롬복 주입 required..
     //쿠폰 목록 조회
     public List<CouponResponse> getCouponList(){//메서드 명칭 변경 or 타입변경
-
         List<Coupon> couponList = couponRepository.getCoupons();
 
         List<CouponResponse> response = new ArrayList<>();
@@ -48,33 +47,39 @@ public class CouponService {
     }
 
     //쿠폰 발급
-    public UserCouponResponse getCoupon(UserCoupon userCoupon){
-
+    @Transactional
+    public UserCouponResponse issueCoupon(UserCoupon userCoupon){
         LocalDate today = LocalDate.now();
 
         //쿠폰 한행
-        Coupon coupon = new Coupon();
-        Coupon optionalCoupon = couponRepository.getCouponInfo(coupon.getId());
+        Coupon optionalCoupon = couponRepository.getCouponInfo(userCoupon.getCouponId());
 
         //쿠폰 있는지 없는지 여부 판별
-        if(optionalCoupon == null){
+        if(optionalCoupon == null || optionalCoupon.getId()<=0){
+            throw new CustomException(ErrorCode.COUPON_NOT_FOUND);
+        }
+
+        if(optionalCoupon.getQuantity() <= 0){
             throw new CustomException(ErrorCode.COUPON_NOT_FOUND);
         }
 
         LocalDate expirationDate = optionalCoupon.getExpirationDate().toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();
-
+        log.info("Retrieved Coupon: {}", optionalCoupon);
+        log.info("Today's Date: {}", today);
+        log.info("Coupon Expiration Date: {}", expirationDate);
         if(expirationDate.isBefore(today)){//만료일이 오늘 보다 이전 날짜 라면
-            throw new CustomException(ErrorCode.COUPON_NOT_FOUND);
+            throw new CustomException(ErrorCode.COUPON_OVER_DATE);
         }
+
+        couponRepository.deductCoupon(optionalCoupon.getId());//쿠폰 수량 차감
 
         return new UserCouponResponse(userCoupon.getCouponId(), userCoupon.getUserId());
     }
 
     //사용자 쿠폰 목록 조회
     public List<UserCouponResponse> getUserCoupon(int userId){
-
         List<UserCoupon> userCouponList = couponRepository.getUserCoupon(userId);
 
         if(userCouponList.isEmpty()){

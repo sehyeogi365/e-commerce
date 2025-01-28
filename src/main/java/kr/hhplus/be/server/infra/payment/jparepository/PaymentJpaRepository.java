@@ -11,9 +11,7 @@ import java.util.List;
 
 public interface PaymentJpaRepository extends JpaRepository<Payment, Long> {
 
-    //결제하기
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
-    Payment save(Payment payment);
+    //결제하기 - 보통 인서트에는 락 적용안한다함
 
     //OriginPrice 계산
 //    Integer originPrice(int quantity, int price);

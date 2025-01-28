@@ -4,8 +4,7 @@ package kr.hhplus.be.server.infra.coupon.repository;
 import kr.hhplus.be.server.domain.coupon.entity.Coupon;
 import kr.hhplus.be.server.domain.coupon.entity.UserCoupon;
 import kr.hhplus.be.server.domain.coupon.repository.CouponRepository;
-import kr.hhplus.be.server.domain.error.CustomException;
-import kr.hhplus.be.server.domain.error.ErrorCode;
+
 import kr.hhplus.be.server.infra.coupon.jparepository.CouponJpaRepository;
 import kr.hhplus.be.server.infra.coupon.jparepository.UserCouponJpaRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -37,32 +35,30 @@ public class CouponRepositoryImpl implements CouponRepository {
         return couponJpaRepository.findById(id);
     }
 
-    //쿠폰 사용
+    //쿠폰 수량 차감
     @Override
-    public void useCoupon(long id){
-        couponJpaRepository.useCoupon(id);
+    public void deductCoupon(long id){
+        couponJpaRepository.deductCoupon(id);
     }
 
     //쿠폰 발급
     @Override
-    public UserCoupon getCoupon(UserCoupon userCoupon) {
-
-        if(userCoupon.getCouponId() <= 0){
-            throw new CustomException(ErrorCode.COUPON_NOT_FOUND);
-        }
-        if(userCoupon.getUserId() <= 0){
-            throw new IllegalArgumentException("No users found");
-        }
-
+    public UserCoupon issueCoupon(UserCoupon userCoupon) {
         return userCouponJpaRepository.save(userCoupon);
     }
 
     //사용자 쿠폰 목록 조회
     @Override
     public List<UserCoupon> getUserCoupon(int userId) {
+        return userCouponJpaRepository.findByUserId(userId);
+//        return Optional.ofNullable(userCouponJpaRepository.findByUserId(userId))
+//                .orElseThrow(() -> new IllegalArgumentException("Coupons not found"));
+    }
 
-        return Optional.ofNullable(couponJpaRepository.findByUserId(userId))
-                .orElseThrow(() -> new IllegalArgumentException("Coupons not found"));
+    //쿠폰 사용
+    @Override
+    public void useCoupon(long id) {
+        userCouponJpaRepository.useCoupon(id);
     }
 
 }
