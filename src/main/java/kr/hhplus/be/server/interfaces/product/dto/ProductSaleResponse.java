@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @AllArgsConstructor
@@ -13,6 +13,6 @@ import java.time.LocalDateTime;
 public class ProductSaleResponse {
     long id;
     int productId;
-    LocalDateTime saleDate;
+    Date saleDate;
     int quantitySold;
 }

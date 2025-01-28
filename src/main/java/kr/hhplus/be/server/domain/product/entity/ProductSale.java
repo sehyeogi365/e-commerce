@@ -7,8 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -26,7 +25,7 @@ public class ProductSale extends BaseTimeEntity {
     int productId;
 
     @Column(name="saleDate")
-    LocalDateTime saleDate;
+    Date saleDate;
 
     @Column(name="quantitySold")
     int quantitySold;

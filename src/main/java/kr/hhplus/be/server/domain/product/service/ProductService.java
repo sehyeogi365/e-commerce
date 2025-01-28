@@ -1,5 +1,7 @@
 package kr.hhplus.be.server.domain.product.service;
 
+import kr.hhplus.be.server.domain.error.CustomException;
+import kr.hhplus.be.server.domain.error.ErrorCode;
 import kr.hhplus.be.server.domain.product.entity.Product;
 import kr.hhplus.be.server.domain.product.entity.ProductSale;
 import kr.hhplus.be.server.domain.product.repository.ProductRepository;
@@ -9,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,6 +29,10 @@ public class ProductService {
     public List<ProductResponse> getProducts(){
 
         List<Product> productList = productRepository.getProducts();
+
+        if(productList.isEmpty()){
+            throw new CustomException(ErrorCode.ITEM_NOT_FOUND);
+        }
 
         List<ProductResponse> response = new ArrayList<>();
 
