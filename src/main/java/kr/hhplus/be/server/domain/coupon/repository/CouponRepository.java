@@ -18,6 +18,8 @@ public interface CouponRepository {
     //쿠폰 한행 조회
     Coupon getCouponInfo(long id);
 
+    Optional<Coupon> findCouponInfo(long id);
+
     //쿠폰 수량 차감
     void deductCoupon(long id);
 

@@ -51,29 +51,29 @@ public class CouponService {
     public UserCouponResponse issueCoupon(UserCoupon userCoupon){
         LocalDate today = LocalDate.now();
 
-        //쿠폰 한행
-        Coupon optionalCoupon = couponRepository.getCouponInfo(userCoupon.getCouponId());
+        //쿠폰 한행 -> 쿠폰 정보를 가져온다
+        Coupon coupon = couponRepository.findCouponInfo(userCoupon.getCouponId()).orElseThrow(() -> new CustomException(ErrorCode.COUPON_NOT_FOUND));
 
         //쿠폰 있는지 없는지 여부 판별
-        if(optionalCoupon == null || optionalCoupon.getId()<=0){
-            throw new CustomException(ErrorCode.COUPON_NOT_FOUND);
+//        if(optionalCoupon == null || optionalCoupon.getId()<=0){
+//            throw new CustomException(ErrorCode.COUPON_NOT_FOUND);
+//        }
+
+        if(coupon.getQuantity() <= 0){
+            throw new CustomException(ErrorCode.COUPON_QUANTITY_ZERO);// COUPON_NOT_FOUND -> CouponQuatntity Notfound 뭐 이런식으로 변경
         }
 
-        if(optionalCoupon.getQuantity() <= 0){
-            throw new CustomException(ErrorCode.COUPON_NOT_FOUND);
-        }
-
-        LocalDate expirationDate = optionalCoupon.getExpirationDate().toInstant()
+        LocalDate expirationDate = coupon.getExpirationDate().toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();
-        log.info("Retrieved Coupon: {}", optionalCoupon);
+        log.info("Retrieved Coupon: {}", coupon);
         log.info("Today's Date: {}", today);
         log.info("Coupon Expiration Date: {}", expirationDate);
         if(expirationDate.isBefore(today)){//만료일이 오늘 보다 이전 날짜 라면
             throw new CustomException(ErrorCode.COUPON_OVER_DATE);
         }
 
-        couponRepository.deductCoupon(optionalCoupon.getId());//쿠폰 수량 차감
+        couponRepository.deductCoupon(coupon.getId());//쿠폰 수량 차감
 
         return new UserCouponResponse(userCoupon.getCouponId(), userCoupon.getUserId());
     }
