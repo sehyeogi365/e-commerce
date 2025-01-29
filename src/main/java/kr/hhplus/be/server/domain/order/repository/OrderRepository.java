@@ -12,9 +12,6 @@ public interface OrderRepository {
     //주문하기
     Order save(Order order);
 
-    //상품 한행 정보
-    Product findById(int id);
-
     //주문 목록 조회
     List<Order> getOrders(int userId);
 }

@@ -23,13 +23,7 @@ public class OrderRepositoryImpl implements OrderRepository {
         return orderJpaRepository.save(order);
     }
 
-    //상품 한행 정보
-    @Override
-    public Product findById(int id) {
-        return orderJpaRepository.findById(id);
-    }
 
-    //주문 목록 조회
     @Override
     public List<Order> getOrders(int userId) {
         return orderJpaRepository.findByUserId(userId);

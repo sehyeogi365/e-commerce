@@ -5,6 +5,7 @@ import kr.hhplus.be.server.domain.error.ErrorCode;
 import kr.hhplus.be.server.domain.order.entity.Order;
 import kr.hhplus.be.server.domain.order.repository.OrderRepository;
 import kr.hhplus.be.server.domain.product.entity.Product;
+import kr.hhplus.be.server.domain.product.repository.ProductRepository;
 import kr.hhplus.be.server.interfaces.order.dto.OrderResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,44 +22,36 @@ import java.util.List;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-
+    private final ProductRepository productRepository;
     //주문하기
     @Transactional
     public OrderResponse orderProduct(Order order){
-
         //상품 수량 확인후 주문 신청
-        Product product = orderRepository.findById(order.getProductId());
+        Product product = productRepository.findById(order.getProductId()).orElseThrow(() -> new CustomException(ErrorCode.ITEM_NOT_FOUND));
 
         OrderResponse response = new OrderResponse(order.getId(), order.getUserId(), order.getCouponId(), order.getProductId());
 
-        if (product == null) {
-            throw new CustomException(ErrorCode.ITEM_NOT_FOUND);
+        if(product.getQuantity() <= 0){
+            throw new CustomException(ErrorCode.ITEM_QUANTITY_ZERO);
         }
 
-        try{
-          return response;
-        }catch (Exception e){
-            log.error("errormessage"+ e);
-            throw new CustomException(ErrorCode.ITEM_NOT_FOUND);
-        }
+        return response;
     }
 
     //주문 목록 조회
     public List <OrderResponse> getOrderList(int userId){
-
         List<Order> orderList = orderRepository.getOrders(userId);
 
+        if(orderList.isEmpty()){
+            throw new CustomException(ErrorCode.ORDER_NOT_FOUND);
+        }
         List<OrderResponse> response = new ArrayList<>();
 
         for(Order order: orderList){
             response.add(new OrderResponse(order.getId(), order.getUserId(),order.getCouponId(), order.getProductId()));
         }
 
-        try{
-            return response;
-        }catch (IllegalArgumentException e) {
-            throw new IllegalStateException("No orders found for user ID: " + userId, e);
-        }
+        return response;
     }
 
 }
