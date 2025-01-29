@@ -12,7 +12,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.util.AssertionErrors.assertNotNull;
 
 @ExtendWith(MockitoExtension.class)
 class PointServiceTest {

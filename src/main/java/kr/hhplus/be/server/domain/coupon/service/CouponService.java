@@ -55,9 +55,6 @@ public class CouponService {
         Coupon coupon = couponRepository.findCouponInfo(userCoupon.getCouponId()).orElseThrow(() -> new CustomException(ErrorCode.COUPON_NOT_FOUND));
 
         //쿠폰 있는지 없는지 여부 판별
-//        if(optionalCoupon == null || optionalCoupon.getId()<=0){
-//            throw new CustomException(ErrorCode.COUPON_NOT_FOUND);
-//        }
 
         if(coupon.getQuantity() <= 0){
             throw new CustomException(ErrorCode.COUPON_QUANTITY_ZERO);// COUPON_NOT_FOUND -> CouponQuatntity Notfound 뭐 이런식으로 변경

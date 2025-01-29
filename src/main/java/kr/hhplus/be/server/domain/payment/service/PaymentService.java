@@ -35,10 +35,10 @@ public class PaymentService {
     public PaymentResponse addPayment(Payment payment){//TODO - 상품 재고 확인/차감- 쿠폰 검증/사용 - 포인트 차감- 결제 정보 저장 시간나면 Facade패턴도 도입해보기
         // 상품 정보 확인 및 수량 차감
         // 상품 정보 조회 -> 데이터가 존재하면 차감 데이터가 없으면 예외처리 수량이 없어서 결제 실패
-        Product product = productRepository.findById(payment.getProductId());
+        Product product = productRepository.findById(payment.getProductId()).orElseThrow(()-> new CustomException(ErrorCode.ITEM_NOT_FOUND));
 
-        if(product == null){
-            throw new CustomException(ErrorCode.ITEM_NOT_FOUND);
+        if(product.getQuantity() <= 0){
+            new CustomException(ErrorCode.ITEM_QUANTITY_ZERO);
         }
 
         int originPrice = calculateOriginPrice(product.getQuantity(), product.getPrice());
@@ -47,7 +47,7 @@ public class PaymentService {
         int discountPrice = 0;
 
         if(payment.getCouponId() > 0){//쿠폰 적용 + 가격 감소
-            Coupon coupon = couponRepository.getCouponInfo(payment.getCouponId());
+            Coupon coupon = couponRepository.findCouponInfo(payment.getCouponId()).orElseThrow(() -> new CustomException(ErrorCode.COUPON_NOT_FOUND));
 
             if (coupon == null) {
                 throw new CustomException(ErrorCode.COUPON_NOT_FOUND);
