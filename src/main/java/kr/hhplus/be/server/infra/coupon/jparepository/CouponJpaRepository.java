@@ -31,8 +31,6 @@ public interface CouponJpaRepository extends JpaRepository<Coupon, Long> {
     @Query("SELECT c FROM Coupon c WHERE c.id = :id")
     Optional<Coupon> findById(@Param("id") long id);
 
-
-
     //쿠폰 수량 차감
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Modifying

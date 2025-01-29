@@ -44,15 +44,15 @@ class OrderServiceTest {
         int productId = 1;
         int couponId = 1;
 
-        Product product = Product.builder().
-                                id(productId)
+        Product product = Product.builder()
+                                .id(productId)
                                 .name("apple")
                                 .price(1000)
                                 .quantity(1)
                                 .build();
 
-        Order order = Order.builder().
-                            id(id)
+        Order order = Order.builder()
+                            .id(id)
                             .userId(userId)
                             .productId(productId)
                             .couponId(couponId)
@@ -78,20 +78,20 @@ class OrderServiceTest {
         int productId = 1;
         int couponId = 1;
 
-        Product product = Product.builder().
-                id(productId)
+        Product product = Product.builder()
+                .id(productId)
                 .name("apple")
                 .price(1000)
                 .quantity(0)
                 .build();
 
-        Order order = Order.builder().
-                id(id)
-                .userId(userId)
-                .productId(productId)
-                .couponId(couponId)
-                .orderStatus(OrderStatus.ORDERED)
-                .build();
+        Order order = Order.builder()
+                            .id(id)
+                            .userId(userId)
+                            .productId(productId)
+                            .couponId(couponId)
+                            .orderStatus(OrderStatus.ORDERED)
+                            .build();
 
         //when
         when(productRepository.findById(productId)).thenReturn(Optional.of(product));
@@ -111,13 +111,13 @@ class OrderServiceTest {
         int productId = 1;
         int couponId = 1;
 
-        Order order = Order.builder().
-                id(id)
-                .userId(userId)
-                .productId(productId)
-                .couponId(couponId)
-                .orderStatus(OrderStatus.ORDERED)
-                .build();
+        Order order = Order.builder()
+                            .id(id)
+                            .userId(userId)
+                            .productId(productId)
+                            .couponId(couponId)
+                            .orderStatus(OrderStatus.ORDERED)
+                            .build();
 
         //when
         when(productRepository.findById(productId)).thenReturn(Optional.empty());
@@ -137,13 +137,13 @@ class OrderServiceTest {
         int productId = 1;
         int couponId = 1;
 
-        Order order = Order.builder().
-                id(id)
-                .userId(userId)
-                .productId(productId)
-                .couponId(couponId)
-                .orderStatus(OrderStatus.ORDERED)
-                .build();
+        Order order = Order.builder()
+                            .id(id)
+                            .userId(userId)
+                            .productId(productId)
+                            .couponId(couponId)
+                            .orderStatus(OrderStatus.ORDERED)
+                            .build();
 
         List<Order> mockOrderList = List.of(order);
         //when

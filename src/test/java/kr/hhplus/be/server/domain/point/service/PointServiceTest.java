@@ -16,7 +16,6 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class PointServiceTest {
 
-
     @Mock
     private PointRepository pointRepository;
 
@@ -30,12 +29,13 @@ class PointServiceTest {
         int amount = 1000;
 
         Point point = Point.builder()
-                .userId(userId)
-                .point(amount)
-                .build();
+                            .userId(userId)
+                            .point(amount)
+                            .build();
+
+        when(pointRepository.getUserPoint(userId)).thenReturn(point);
 
         //when
-        when(pointRepository.getUserPoint(userId)).thenReturn(point);
         PointResponse result = pointService.getUserPoint(userId);
 
         //then
@@ -52,14 +52,15 @@ class PointServiceTest {
         int amount = 10000;
 
         Point point = Point.builder()
-                .userId(userId)
-                .point(amount)
-                .build();
+                            .userId(userId)
+                            .point(amount)
+                            .build();
         //겟유저포인트는 모킹안해서 아무것도 안들어옴
-        //when
+
         when(pointRepository.chargePoint(userId, amount)).thenReturn(point.getPoint());
         when(pointRepository.getUserPoint(userId)).thenReturn(point);
 
+        //when
         Integer result = pointService.chargePoint(userId, amount);
 
         //then
@@ -78,10 +79,11 @@ class PointServiceTest {
                             .userId(userId)
                             .point(amount)
                             .build();
-        //when
+
         when(pointRepository.chargePoint(userId, amount)).thenReturn(point.getPoint());
         when(pointRepository.getUserPoint(userId)).thenReturn(point);
 
+        //when
         Integer result = pointService.chargePoint(userId, amount);
 
         //then
@@ -101,10 +103,11 @@ class PointServiceTest {
                 .point(amount)
                 .build();
 
-        //when
+
         when(pointRepository.chargePoint(userId, amount)).thenReturn(point.getPoint());
         when(pointRepository.getUserPoint(userId)).thenReturn(point);
 
+        //when
         Integer result = pointService.chargePoint(userId, amount);
 
         //then
