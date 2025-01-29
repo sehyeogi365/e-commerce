@@ -1,6 +1,7 @@
 package kr.hhplus.be.server.domain.payment.service;
 
 import kr.hhplus.be.server.domain.coupon.entity.Coupon;
+import kr.hhplus.be.server.domain.coupon.entity.UserCoupon;
 import kr.hhplus.be.server.domain.coupon.repository.CouponRepository;
 import kr.hhplus.be.server.domain.error.CustomException;
 import kr.hhplus.be.server.domain.error.ErrorCode;
@@ -47,12 +48,8 @@ public class PaymentService {
         int discountPrice = 0;
 
         if(payment.getCouponId() > 0){//쿠폰 적용 + 가격 감소
-            Coupon coupon = couponRepository.findCouponInfo(payment.getCouponId()).orElseThrow(() -> new CustomException(ErrorCode.COUPON_NOT_FOUND));
-
-            if (coupon == null) {
-                throw new CustomException(ErrorCode.COUPON_NOT_FOUND);
-            }
-            discountPrice = calculateDiscountPrice(originPrice, coupon.getPercent());
+            //UserCoupon userCoupon = couponRepository.findUserCouponInfo(payment.getUserId(),payment.getCouponId()).orElseThrow(() -> new CustomException(ErrorCode.COUPON_NOT_FOUND));
+            discountPrice = calculateDiscountPrice(originPrice, payment.getUserId(), payment.getCouponId());
             couponRepository.useCoupon(payment.getCouponId());
             //포인트 차감
             pointRepository.usePoint(payment.getUserId(), discountPrice);
@@ -71,7 +68,8 @@ public class PaymentService {
                 .discountPrice(discountPrice).build();
 
         Payment savedPayment = paymentRepository.save(newPayment);
-
+        //상품수량 감소
+        productRepository.productQuantityDecrease(savedPayment.getProductId());
         //판매량 수량 추가
         productRepository.ProductSalesIncrease(savedPayment.getProductId());
 
@@ -86,8 +84,16 @@ public class PaymentService {
     }
 
     //할인 가격 계산
-    public Integer calculateDiscountPrice(int originPrice, int percent) {
-        return (originPrice * (100- percent) / 100);
+    public Integer calculateDiscountPrice(int originPrice, int userId, int couponId) {
+
+        UserCoupon userCoupon = couponRepository.findUserCouponInfo(userId, couponId)
+                .orElseThrow(() -> new CustomException(ErrorCode.COUPON_NOT_FOUND));
+
+        Coupon coupon = userCoupon.getCoupon();
+        if (coupon == null) {
+            throw new CustomException(ErrorCode.COUPON_NOT_FOUND); // coupon이 null인 경우 처리
+        }
+        return (originPrice * (100- coupon.getPercent()) / 100);
     }
 
     //결제 내역 조회
