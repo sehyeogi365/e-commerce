@@ -29,6 +29,11 @@ public interface CouponRepository {
     //사용자 쿠폰 목록 조회
     List<UserCoupon> getUserCoupon(int userId);
 
+    //사용자 쿠폰 한행
+    UserCoupon getUserCouponInfo(int userId, int couponId);
+
+    Optional<UserCoupon> findUserCouponInfo(int userId, int couponId);
+
     //쿠폰 사용
     void useCoupon(long id);
 }

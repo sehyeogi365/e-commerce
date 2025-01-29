@@ -54,13 +54,13 @@ public class CouponRepositoryImpl implements CouponRepository {
         couponJpaRepository.deductCoupon(id);
     }
 
-    //쿠폰 발급
+    // 쿠폰 발급
     @Override
     public UserCoupon issueCoupon(UserCoupon userCoupon) {
         return userCouponJpaRepository.save(userCoupon);
     }
 
-    //사용자 쿠폰 목록 조회
+    // 사용자 쿠폰 목록 조회
     @Override
     public List<UserCoupon> getUserCoupon(int userId) {
         return userCouponJpaRepository.findByUserId(userId);
@@ -68,7 +68,18 @@ public class CouponRepositoryImpl implements CouponRepository {
 //                .orElseThrow(() -> new IllegalArgumentException("Coupons not found"));
     }
 
-    //쿠폰 사용
+    // 사용자 쿠폰
+    @Override
+    public UserCoupon getUserCouponInfo(int userId, int couponId){
+        return userCouponJpaRepository.getByUserId(userId, couponId);
+    }
+
+    @Override
+    public Optional<UserCoupon> findUserCouponInfo(int userId, int couponId){
+        return userCouponJpaRepository.findByUserId(userId, couponId);
+    }
+
+    // 쿠폰 사용
     @Override
     public void useCoupon(long id) {
         userCouponJpaRepository.useCoupon(id);
