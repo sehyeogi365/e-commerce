@@ -93,8 +93,6 @@ class CouponServiceTest {
                                         .build();
 
         // 가짜 리포지터리 값 설정
-
-
         when(couponRepository.findCouponInfo(userId)).thenReturn(Optional.of(coupon));
         //when(couponRepository.issueCoupon(userCoupon)).thenReturn(userCoupon);
         //when
@@ -118,18 +116,18 @@ class CouponServiceTest {
         int couponId = 1;
         //쿠폰 자체도 저장
         Coupon coupon = Coupon.builder()
-                .id(id)//아이디가 널이면 인서트 낫널이면 업데이트
-                .percent(20)
-                .quantity(0)
-                .expirationDate(expirationDate)
-                .build();
+                                .id(id)//아이디가 널이면 인서트 낫널이면 업데이트
+                                .percent(20)
+                                .quantity(0)
+                                .expirationDate(expirationDate)
+                                .build();
 
         UserCoupon userCoupon = UserCoupon.builder()
-                .id(id)
-                .userId(userId)
-                .couponId(couponId)
-                .couponStatus(CouponStatus.UNUSED)
-                .build();
+                                            .id(id)
+                                            .userId(userId)
+                                            .couponId(couponId)
+                                            .couponStatus(CouponStatus.UNUSED)
+                                            .build();
 
         // 가짜 리포지터리 값 설정
         //when(couponRepository.getUserCoupon(userId)).thenReturn(mockedUserCoupons);
@@ -157,18 +155,18 @@ class CouponServiceTest {
 
         //쿠폰 자체도 저장
         Coupon coupon = Coupon.builder()
-                .id(id)//아이디가 널이면 인서트 낫널이면 업데이트
-                .percent(20)
-                .quantity(1)
-                .expirationDate(expirationDate)
-                .build();
+                                .id(id)//아이디가 널이면 인서트 낫널이면 업데이트
+                                .percent(20)
+                                .quantity(1)
+                                .expirationDate(expirationDate)
+                                .build();
 
         UserCoupon userCoupon = UserCoupon.builder()
-                .id(id)
-                .userId(userId)
-                .couponId(couponId)
-                .couponStatus(CouponStatus.UNUSED)
-                .build();
+                                            .id(id)
+                                            .userId(userId)
+                                            .couponId(couponId)
+                                            .couponStatus(CouponStatus.UNUSED)
+                                            .build();
 
         when(couponRepository.findCouponInfo(userId)).thenReturn(Optional.of(coupon));
 
@@ -199,11 +197,11 @@ class CouponServiceTest {
 //                        .build();
 
         UserCoupon userCoupon = UserCoupon.builder()
-                .id(id)
-                .userId(userId)
-                .couponId(couponId)
-                .couponStatus(CouponStatus.UNUSED)
-                .build();
+                                            .id(id)
+                                            .userId(userId)
+                                            .couponId(couponId)
+                                            .couponStatus(CouponStatus.UNUSED)
+                                            .build();
 
         List<UserCoupon> mockedUserCoupons = List.of(userCoupon);
         when(couponRepository.getUserCoupon(userId)).thenReturn(mockedUserCoupons);

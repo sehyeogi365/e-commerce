@@ -103,7 +103,6 @@ class PointServiceTest {
                 .point(amount)
                 .build();
 
-
         when(pointRepository.chargePoint(userId, amount)).thenReturn(point.getPoint());
         when(pointRepository.getUserPoint(userId)).thenReturn(point);
 
@@ -127,10 +126,11 @@ class PointServiceTest {
                 .point(amount)
                 .build();
 
-        //when
+
         when(pointRepository.chargePoint(userId, amount)).thenReturn(point.getPoint());
         when(pointRepository.getUserPoint(userId)).thenReturn(point);
 
+        //when
         Integer result = pointService.chargePoint(userId, amount);
 
         //then
@@ -150,10 +150,10 @@ class PointServiceTest {
                 .point(500000)//기존 포인트
                 .build();
 
-        //when
         when(pointRepository.chargePoint(userId, amount)).thenReturn(amount);
         when(pointRepository.getUserPoint(userId)).thenReturn(point);
 
+        //when
         Integer result = pointService.chargePoint(userId, amount);
 
         //then

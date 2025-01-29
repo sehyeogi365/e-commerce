@@ -59,8 +59,10 @@ class OrderServiceTest {
                             .orderStatus(OrderStatus.ORDERED)
                             .build();
 
-        //when
+
         when(productRepository.findById(productId)).thenReturn(Optional.of(product));
+
+        //when
         OrderResponse result = orderService.orderProduct(order);
 
         //then
@@ -93,10 +95,9 @@ class OrderServiceTest {
                             .orderStatus(OrderStatus.ORDERED)
                             .build();
 
-        //when
         when(productRepository.findById(productId)).thenReturn(Optional.of(product));
 
-        //then
+        //when&then
         assertThatThrownBy(() -> orderService.orderProduct(order)) // 예외가 발생해야 함
                 .isInstanceOf(CustomException.class) // CustomException 발생 예상
                 .hasMessage(ErrorCode.ITEM_QUANTITY_ZERO.getMessage());
@@ -119,11 +120,10 @@ class OrderServiceTest {
                             .orderStatus(OrderStatus.ORDERED)
                             .build();
 
-        //when
         when(productRepository.findById(productId)).thenReturn(Optional.empty());
         //OrderResponse result = orderService.orderProduct(order);
 
-        //then
+        //when&then
         assertThatThrownBy(() -> orderService.orderProduct(order)) // 예외가 발생해야 함
                 .isInstanceOf(CustomException.class) // CustomException 발생 예상
                 .hasMessage(ErrorCode.ITEM_NOT_FOUND.getMessage());
@@ -146,10 +146,13 @@ class OrderServiceTest {
                             .build();
 
         List<Order> mockOrderList = List.of(order);
-        //when
+
         when(orderRepository.getOrders(userId)).thenReturn(mockOrderList);
+
+        //when
         List<OrderResponse> result = orderService.getOrderList(userId);
 
+        //then
         assertThat(result).isNotNull();
         assertThat(result.size()).isEqualTo(1);
     }
