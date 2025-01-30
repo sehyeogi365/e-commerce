@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
@@ -98,10 +99,11 @@ class PaymentServiceTest {
 
         when(productRepository.findById(productId)).thenReturn(Optional.of(product));
         when(couponRepository.findUserCouponInfo(userId, couponId)).thenReturn(Optional.of(userCoupon));
-        when(paymentRepository.save(payment)).thenReturn(payment);
         doNothing().when(couponRepository).useCoupon(couponId);
-        doNothing().when(pointRepository).usePoint(userId, discountPrice);
-
+        when(pointRepository.usePoint(userId,discountPrice)).thenReturn(discountPrice);
+        when(paymentRepository.save(any(Payment.class))).thenReturn(payment);
+        doNothing().when(productRepository).productQuantityDecrease(productId);
+        doNothing().when(productRepository).productSalesIncrease(productId);
         //when
         PaymentResponse result = paymentService.addPayment(payment);
 
