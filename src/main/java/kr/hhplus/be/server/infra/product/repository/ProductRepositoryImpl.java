@@ -39,7 +39,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     //판매수량 증가
     @Override
-    public void ProductSalesIncrease(int productId) {
+    public void productSalesIncrease(int productId) {
         productJpaRepository.productSaleIncrease(productId);
     }
 

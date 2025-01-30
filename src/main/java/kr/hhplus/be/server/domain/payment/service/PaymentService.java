@@ -71,7 +71,7 @@ public class PaymentService {
         //상품수량 감소
         productRepository.productQuantityDecrease(savedPayment.getProductId());
         //판매량 수량 추가
-        productRepository.ProductSalesIncrease(savedPayment.getProductId());
+        productRepository.productSalesIncrease(savedPayment.getProductId());
 
         return new PaymentResponse(savedPayment.getId(), savedPayment.getOrderId());
     }
