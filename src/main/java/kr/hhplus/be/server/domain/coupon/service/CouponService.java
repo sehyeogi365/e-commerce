@@ -75,7 +75,7 @@ public class CouponService {
         return new UserCouponResponse(userCoupon.getCouponId(), userCoupon.getUserId());
     }
 
-    //사용자 쿠폰 목록 조회
+    // 사용자 쿠폰 목록 조회
     public List<UserCouponResponse> getUserCoupon(int userId){
         List<UserCoupon> userCouponList = couponRepository.getUserCoupon(userId);
 

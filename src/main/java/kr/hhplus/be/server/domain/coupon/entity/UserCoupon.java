@@ -26,10 +26,11 @@ public class UserCoupon extends BaseTimeEntity {
     @Column(name="couponId")
     private int couponId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "couponId", insertable = false, updatable = false)
     private Coupon coupon;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
+    @Column(name = "statement")
     private CouponStatus couponStatus;
 }

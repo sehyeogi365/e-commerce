@@ -5,7 +5,7 @@ import kr.hhplus.be.server.domain.coupon.entity.Coupon;
 import kr.hhplus.be.server.domain.coupon.entity.UserCoupon;
 import kr.hhplus.be.server.domain.coupon.repository.CouponRepository;
 
-import kr.hhplus.be.server.domain.error.CustomException;
+
 import kr.hhplus.be.server.infra.coupon.jparepository.CouponJpaRepository;
 import kr.hhplus.be.server.infra.coupon.jparepository.UserCouponJpaRepository;
 import lombok.RequiredArgsConstructor;
@@ -63,7 +63,7 @@ public class CouponRepositoryImpl implements CouponRepository {
     // 사용자 쿠폰 목록 조회
     @Override
     public List<UserCoupon> getUserCoupon(int userId) {
-        return userCouponJpaRepository.findByUserId(userId);
+        return userCouponJpaRepository.getUserCoupon(userId);
 //        return Optional.ofNullable(userCouponJpaRepository.findByUserId(userId))
 //                .orElseThrow(() -> new IllegalArgumentException("Coupons not found"));
     }
@@ -76,7 +76,7 @@ public class CouponRepositoryImpl implements CouponRepository {
 
     @Override
     public Optional<UserCoupon> findUserCouponInfo(int userId, int couponId){
-        return userCouponJpaRepository.findByUserId(userId, couponId);
+        return userCouponJpaRepository.findByUserIdAndCouponId(userId, couponId);
     }
 
     // 쿠폰 사용
