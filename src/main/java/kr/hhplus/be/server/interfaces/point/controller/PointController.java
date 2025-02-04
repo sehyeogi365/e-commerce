@@ -43,11 +43,19 @@ public class PointController {
     @Operation(summary = "포인트  충전", description = "유저 ID로 포인트를 충전합니다.")
     public ApiResponse<PointResponse> pointCharge(@RequestBody PointRequest pointRequest){
 
+        // 요청값 검증 - 필수 필드 체크
+        if (pointRequest.getUserId() <= 0) {
+            throw new IllegalArgumentException("유효하지 않은 유저 ID입니다.");
+        }
+        if (pointRequest.getPoint() <= 0) {
+            throw new IllegalArgumentException("충전할 포인트는 0보다 커야 합니다.");
+        }
+
         Integer point = pointService.chargePoint(pointRequest.getUserId(), pointRequest.getPoint());
         PointResponse response = new PointResponse(pointRequest.getUserId(), point);
 
         log.info("response " +response);
-        return ApiResponse.ok(new PointResponse(pointRequest.getUserId(), point));
+        return ApiResponse.ok(response);
     }
 
 }
