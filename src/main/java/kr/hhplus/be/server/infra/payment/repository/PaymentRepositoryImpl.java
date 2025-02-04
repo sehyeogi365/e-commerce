@@ -36,7 +36,7 @@ public class PaymentRepositoryImpl implements PaymentRepository{
 
     //결제내역 조회
     @Override
-    public List<Payment> getPaymentList(int userId) {
+    public List<Payment> getPaymentList(long userId) {
 
         List<Payment> payments = paymentJpaRepository.findByUserId(userId);
 

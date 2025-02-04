@@ -39,7 +39,7 @@ public class OrderService {
     }
 
     //주문 목록 조회
-    public List <OrderResponse> getOrderList(int userId){
+    public List <OrderResponse> getOrderList(long userId){
         List<Order> orderList = orderRepository.getOrders(userId);
 
         if(orderList.isEmpty()){

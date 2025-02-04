@@ -18,13 +18,13 @@ public class Order extends BaseTimeEntity {
     private long id;
 
     @Column(name="userId")
-    private int userId;
+    private long userId;
 
     @Column(name="productId")
-    private int productId;
+    private long productId;
 
     @Column(name="couponId")
-    private int couponId;
+    private long couponId;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;

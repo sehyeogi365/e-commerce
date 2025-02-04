@@ -34,7 +34,7 @@ public interface ProductJpaRepository extends JpaRepository<Product, Long> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Modifying
     @Query("UPDATE ProductSale p SET p.quantitySold = p.quantitySold+1 where p.productId = :productId")
-    void productSaleIncrease(@Param("productId") int productId);
+    void productSaleIncrease(@Param("productId") long productId);
 
     //상품 갯수 차감
     @Lock(LockModeType.PESSIMISTIC_WRITE)

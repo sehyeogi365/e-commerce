@@ -56,10 +56,10 @@ class PaymentServiceTest {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date expirationDate = dateFormat.parse(dateString);
         long id = 1L;
-        int userId = 1;
-        int orderId = 1;
-        int productId = 1;
-        int couponId = 1;
+        long userId = 1L;
+        long orderId = 1L;
+        long productId = 1L;
+        long couponId = 1L;
         int originalPrice = 1000;
         int discountPercent = 20;
         int discountPrice = originalPrice * (100 - discountPercent) / 100;
@@ -109,7 +109,7 @@ class PaymentServiceTest {
 
         //then
         assertThat(result).isNotNull();
-        assertThat(result.getOrderId()).isEqualTo(1);
+        assertThat(result.getOrderId()).isEqualTo(1L);
     }
 
     //시간나면 결제 실패테스트도 해보기
@@ -118,10 +118,10 @@ class PaymentServiceTest {
     void 결제_내역_조회(){
         //given
         long id = 1L;
-        int userId = 1;
-        int orderId = 1;
-        int productId = 1;
-        int couponId = 1;
+        long userId = 1L;
+        long orderId = 1L;
+        long productId = 1L;
+        long couponId = 1L;
 
         Payment payment = Payment.builder()
                 .id(id)
@@ -141,8 +141,6 @@ class PaymentServiceTest {
 
         //then
         assertThat(result).isNotNull();
-        assertThat(result.size()).isEqualTo(1);
-
-
+        assertThat(result.size()).isEqualTo(1L);
     }
 }

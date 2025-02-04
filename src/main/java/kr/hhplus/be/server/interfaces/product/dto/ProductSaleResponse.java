@@ -12,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class ProductSaleResponse {
     long id;
-    int productId;
+    long productId;
     Date saleDate;
     int quantitySold;
 }

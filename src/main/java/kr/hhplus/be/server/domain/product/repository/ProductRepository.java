@@ -20,7 +20,7 @@ public interface ProductRepository {
     Optional<Product> findById(long id);
 
     //판매수량 증가
-    void productSalesIncrease(int productId);
+    void productSalesIncrease(long productId);
 
     //상품 갯수 차감
     void productQuantityDecrease(long id);

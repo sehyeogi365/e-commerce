@@ -40,9 +40,9 @@ class OrderServiceTest {
     void 주문_생성(){
         //given
         long id = 1L;
-        int userId = 1;
-        int productId = 1;
-        int couponId = 1;
+        long userId = 1L;
+        long productId = 1L;
+        long couponId = 1L;
 
         Product product = Product.builder()
                                 .id(productId)
@@ -76,9 +76,9 @@ class OrderServiceTest {
     void 주문_생성2(){
         //given
         long id = 1L;
-        int userId = 1;
-        int productId = 1;
-        int couponId = 1;
+        long userId = 1L;
+        long productId = 1L;
+        long couponId = 1L;
 
         Product product = Product.builder()
                 .id(productId)
@@ -108,9 +108,9 @@ class OrderServiceTest {
     void 주문_생성3(){
         //given
         long id = 1L;
-        int userId = 1;
-        int productId = 1;
-        int couponId = 1;
+        long userId = 1L;
+        long productId = 1L;
+        long couponId = 1L;
 
         Order order = Order.builder()
                             .id(id)
@@ -133,9 +133,9 @@ class OrderServiceTest {
     void 주문_조회(){
         //given
         long id = 1L;
-        int userId = 1;
-        int productId = 1;
-        int couponId = 1;
+        long userId = 1L;
+        long productId = 1L;
+        long couponId = 1L;
 
         Order order = Order.builder()
                             .id(id)

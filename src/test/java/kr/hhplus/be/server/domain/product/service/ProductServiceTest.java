@@ -91,7 +91,7 @@ class ProductServiceTest {
     void Top5_상품_조회()throws ParseException {
         //given
         long id = 1L;
-        int productId = 1;
+        long productId = 1L;
         String dateString = "2026-04-02";
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date saleDate = dateFormat.parse(dateString);
@@ -99,31 +99,31 @@ class ProductServiceTest {
         List<ProductSale> mockTop5List = List.of(
         ProductSale.builder()
                 .id(1L)
-                .productId(1)
+                .productId(1L)
                 .saleDate(saleDate)
                 .quantitySold(100) // 1번 상품 판매량
                 .build(),
                 ProductSale.builder()
                         .id(2L)
-                        .productId(2)
+                        .productId(2L)
                         .saleDate(saleDate)
                         .quantitySold(90) // 2번 상품 판매량
                         .build(),
                 ProductSale.builder()
                         .id(3L)
-                        .productId(3)
+                        .productId(3L)
                         .saleDate(saleDate)
                         .quantitySold(80) // 3번 상품 판매량
                         .build(),
                 ProductSale.builder()
                         .id(4L)
-                        .productId(4)
+                        .productId(4L)
                         .saleDate(saleDate)
                         .quantitySold(70) // 4번 상품 판매량
                         .build(),
                 ProductSale.builder()
                         .id(5L)
-                        .productId(5)
+                        .productId(5L)
                         .saleDate(saleDate)
                         .quantitySold(60) // 5번 상품 판매량
                         .build()

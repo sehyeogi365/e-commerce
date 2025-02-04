@@ -22,5 +22,5 @@ public interface PaymentJpaRepository extends JpaRepository<Payment, Long> {
 
     //결제내역 조회
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    List<Payment> findByUserId(int userId);
+    List<Payment> findByUserId(long userId);
 }

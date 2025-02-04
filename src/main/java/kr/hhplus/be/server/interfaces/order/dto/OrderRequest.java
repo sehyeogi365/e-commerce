@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OrderRequest {
     private long id;
-    private int userId;
-    private int couponId;
-    private int productId;
+    private long userId;
+    private long couponId;
+    private long productId;
 }

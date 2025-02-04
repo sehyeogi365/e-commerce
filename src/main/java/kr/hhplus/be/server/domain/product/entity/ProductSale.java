@@ -22,7 +22,7 @@ public class ProductSale extends BaseTimeEntity {
     long id;
 
     @Column(name="productId")
-    int productId;
+    long productId;
 
     @Column(name="saleDate")
     Date saleDate;

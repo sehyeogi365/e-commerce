@@ -84,7 +84,7 @@ public class PaymentService {
     }
 
     //할인 가격 계산
-    public Integer calculateDiscountPrice(int originPrice, int userId, int couponId) {
+    public Integer calculateDiscountPrice(int originPrice, long userId, long couponId) {
 
         UserCoupon userCoupon = couponRepository.findUserCouponInfo(userId, couponId)
                 .orElseThrow(() -> new CustomException(ErrorCode.COUPON_NOT_FOUND));
@@ -97,7 +97,7 @@ public class PaymentService {
     }
 
     //결제 내역 조회
-    public List<PaymentResponse> getPaymentList(int userId) {
+    public List<PaymentResponse> getPaymentList(long userId) {
         List<Payment> paymentList = paymentRepository.getPaymentList(userId);
         List<PaymentResponse> response = new ArrayList<>();
 

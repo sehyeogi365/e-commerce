@@ -13,5 +13,5 @@ public interface OrderRepository {
     Order save(Order order);
 
     //주문 목록 조회
-    List<Order> getOrders(int userId);
+    List<Order> getOrders(long userId);
 }

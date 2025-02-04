@@ -37,9 +37,10 @@ public class ProductRepositoryImpl implements ProductRepository {
         return productJpaRepository.findById(id);
     }
 
+
     //판매수량 증가
     @Override
-    public void productSalesIncrease(int productId) {
+    public void productSalesIncrease(long productId) {
         productJpaRepository.productSaleIncrease(productId);
     }
 

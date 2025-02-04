@@ -17,16 +17,16 @@ public class Payment extends BaseTimeEntity {
     private long id;
 
     @Column(name="userId")
-    private int userId;
+    private long userId;
 
     @Column(name="orderId")
-    private int orderId;
+    private long orderId;
 
     @Column(name="productId")
-    private int productId;
+    private long productId;
 
     @Column(name="couponId")
-    private int couponId;
+    private long couponId;
 
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;

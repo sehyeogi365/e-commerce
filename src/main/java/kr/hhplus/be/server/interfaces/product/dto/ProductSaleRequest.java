@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ProductSaleRequest {
     long id;
-    int productId;
+    long productId;
     LocalDateTime saleDate;
     int quantitySold;
 }

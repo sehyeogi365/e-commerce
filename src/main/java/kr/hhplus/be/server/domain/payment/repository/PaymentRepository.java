@@ -18,5 +18,5 @@ public interface PaymentRepository {
 //    Integer discountPrice(int originPrice, int percent);
 
     //결제 내역 조회
-    List<Payment> getPaymentList(int userId);
+    List<Payment> getPaymentList(long userId);
 }
