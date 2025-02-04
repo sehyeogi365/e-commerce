@@ -44,7 +44,7 @@ class CouponServiceTest {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date expirationDate = dateFormat.parse(dateString);
         Coupon coupon = Coupon.builder()
-                .id(1)
+                .id(1L)
                 .percent(20)
                 .expirationDate(expirationDate)
                 .quantity(1)
@@ -75,8 +75,8 @@ class CouponServiceTest {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date expirationDate = dateFormat.parse(dateString);
         long id = 1L;
-        int userId = 1;
-        int couponId = 1;
+        long userId = 1L;
+        long couponId = 1L;
         //쿠폰 자체도 저장
         Coupon coupon = Coupon.builder().
                                 id(id)//아이디가 널이면 인서트 낫널이면 업데이트
@@ -112,8 +112,8 @@ class CouponServiceTest {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date expirationDate = dateFormat.parse(dateString);
         long id = 1L;
-        int userId = 1;
-        int couponId = 1;
+        long userId = 1L;
+        long couponId = 1L;
         //쿠폰 자체도 저장
         Coupon coupon = Coupon.builder()
                                 .id(id)//아이디가 널이면 인서트 낫널이면 업데이트
@@ -150,8 +150,8 @@ class CouponServiceTest {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date expirationDate = dateFormat.parse(dateString);
         long id = 1L;
-        int userId = 1;
-        int couponId = 1;
+        long userId = 1L;
+        long couponId = 1L;
 
         //쿠폰 자체도 저장
         Coupon coupon = Coupon.builder()
@@ -185,8 +185,8 @@ class CouponServiceTest {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date expirationDate = dateFormat.parse(dateString);
         long id = 1L;
-        int userId = 1;
-        int couponId = 1;
+        long userId = 1L;
+        long couponId = 1L;
 
         //쿠폰 자체도 저장
 //        Coupon coupon = Coupon.builder()

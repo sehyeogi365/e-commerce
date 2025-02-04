@@ -13,17 +13,17 @@ public class PointRepositoryImpl implements PointRepository {
     private final PointJpaRepository pointJpaRepository;
 
     @Override
-    public Point getUserPoint(int userId) {
+    public Point getUserPoint(long userId) {
         return pointJpaRepository.findByUserId(userId);
     }
 
     @Override
-    public Integer chargePoint(int userId, int point) {
+    public Integer chargePoint(long userId, int point) {
         return pointJpaRepository.chargePoint(userId, point);
     }
 
     @Override
-    public Integer usePoint(int userId, int point) {
+    public Integer usePoint(long userId, int point) {
         return pointJpaRepository.usePoint(userId, point);
     }
 

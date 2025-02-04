@@ -112,6 +112,7 @@ class PaymentServiceTest {
         assertThat(result.getOrderId()).isEqualTo(1);
     }
 
+    //시간나면 결제 실패테스트도 해보기
     @Test
     @DisplayName("결제 내역 조회")
     void 결제_내역_조회(){

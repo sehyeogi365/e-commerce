@@ -21,10 +21,10 @@ public class UserCoupon extends BaseTimeEntity {
     private long id;
 
     @Column(name="userId")
-    private int userId;
+    private long userId;
 
     @Column(name="couponId")
-    private int couponId;
+    private long couponId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "couponId", insertable = false, updatable = false)

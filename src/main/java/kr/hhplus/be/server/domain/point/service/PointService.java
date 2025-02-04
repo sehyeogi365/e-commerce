@@ -27,7 +27,7 @@ public class PointService {
 
     //잔액 충전
     @Transactional//보통이렇게 트랜잭션 붙여줌 예외 사항시 롤백
-    public Integer chargePoint(int userId, int point){
+    public Integer chargePoint(long userId, int point){
 
         //0포인트 충전시, 10000단위가 아닐시, 백만포인트 이상 보유시, 충전이후 백만포인트 초과시 등등,
         //이미 업데이트 했기에 -1이 들어감 이경우 트랜잭션으로 롤백처리 해야 한다함

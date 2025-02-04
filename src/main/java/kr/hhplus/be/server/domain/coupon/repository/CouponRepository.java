@@ -25,12 +25,12 @@ public interface CouponRepository {
     UserCoupon issueCoupon(UserCoupon userCoupon);
 
     // 사용자 쿠폰 목록 조회
-    List<UserCoupon> getUserCoupon(int userId);
+    List<UserCoupon> getUserCoupon(long userId);
 
     // 사용자 쿠폰 한행
-    UserCoupon getUserCouponInfo(int userId, int couponId);
+    UserCoupon getUserCouponInfo(long userId, long couponId);
 
-    Optional<UserCoupon> findUserCouponInfo(int userId, int couponId);
+    Optional<UserCoupon> findUserCouponInfo(long userId, long couponId);
 
     // 쿠폰 사용
     void useCoupon(long id);

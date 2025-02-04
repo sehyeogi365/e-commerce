@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PointRequest {
-    private int userId;
+    private long userId;
     private int point;
 }

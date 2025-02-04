@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserCouponResponse {
-    private int userId;
-    private int couponId;
+    private long userId;
+    private long couponId;
 }

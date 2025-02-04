@@ -62,7 +62,7 @@ public class CouponRepositoryImpl implements CouponRepository {
 
     // 사용자 쿠폰 목록 조회
     @Override
-    public List<UserCoupon> getUserCoupon(int userId) {
+    public List<UserCoupon> getUserCoupon(long userId) {
         return userCouponJpaRepository.getUserCoupon(userId);
 //        return Optional.ofNullable(userCouponJpaRepository.findByUserId(userId))
 //                .orElseThrow(() -> new IllegalArgumentException("Coupons not found"));
@@ -70,12 +70,12 @@ public class CouponRepositoryImpl implements CouponRepository {
 
     // 사용자 쿠폰
     @Override
-    public UserCoupon getUserCouponInfo(int userId, int couponId){
+    public UserCoupon getUserCouponInfo(long userId, long couponId){
         return userCouponJpaRepository.getByUserId(userId, couponId);
     }
 
     @Override
-    public Optional<UserCoupon> findUserCouponInfo(int userId, int couponId){
+    public Optional<UserCoupon> findUserCouponInfo(long userId, long couponId){
         return userCouponJpaRepository.findByUserIdAndCouponId(userId, couponId);
     }
 

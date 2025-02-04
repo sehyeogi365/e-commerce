@@ -16,7 +16,7 @@ public class Point extends BaseTimeEntity {
     long id;
 
     @Column(name="userId")
-    int userId;
+    long userId;
 
     @Column(name="point")
     int point;
