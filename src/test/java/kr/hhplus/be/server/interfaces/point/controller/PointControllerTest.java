@@ -33,7 +33,7 @@ class PointControllerTest {
     @DisplayName("포인트 충전")
     void 포인트_충전() throws Exception {
         //given
-        int userId = 1;
+        long userId = 1L;
         int point = 10000;
 
         PointRequest pointRequest = new PointRequest(userId, point);
@@ -60,7 +60,7 @@ class PointControllerTest {
 //                "point": 10001
 //            }
 //        """;
-        int userId = 1;
+        long userId = 1L;
         int point = 10000;
 
         PointRequest pointRequest = new PointRequest(userId, point);

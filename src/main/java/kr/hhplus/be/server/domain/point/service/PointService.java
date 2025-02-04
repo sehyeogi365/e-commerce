@@ -20,7 +20,7 @@ public class PointService {
     private final PointRepository pointRepository;
 
     //포인트 조회
-    public PointResponse getUserPoint(int userId){
+    public PointResponse getUserPoint(long userId){
         Point point = pointRepository.getUserPoint(userId);
         return new PointResponse(userId, point.getPoint());
     }
