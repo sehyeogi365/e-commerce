@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,8 +34,10 @@ import java.util.Optional;
 public class CouponService {
 
     private final CouponRepository couponRepository;//TODO: 생성자 or 롬복 주입 required..
-    //쿠폰 목록 조회
-    public List<CouponResponse> getCouponList(){//메서드 명칭 변경 or 타입변경
+
+    //TODO: 쿠폰발급 캐싱 적용해서 리팩토링
+    // 쿠폰 목록 조회
+    public List<CouponResponse> getCouponList(){// 메서드 명칭 변경 or 타입변경
         List<Coupon> couponList = couponRepository.getCoupons();
 
         List<CouponResponse> response = new ArrayList<>();
@@ -46,15 +49,15 @@ public class CouponService {
         return response;
     }
 
-    //쿠폰 발급
+    // 쿠폰 발급
     @Transactional
     public UserCouponResponse issueCoupon(UserCoupon userCoupon){
         LocalDate today = LocalDate.now();
 
-        //쿠폰 한행 -> 쿠폰 정보를 가져온다
+        // 쿠폰 한행 -> 쿠폰 정보를 가져온다
         Coupon coupon = couponRepository.findCouponInfo(userCoupon.getCouponId()).orElseThrow(() -> new CustomException(ErrorCode.COUPON_NOT_FOUND));
 
-        //쿠폰 있는지 없는지 여부 판별
+        // 쿠폰 있는지 없는지 여부 판별
 
         if(coupon.getQuantity() <= 0){
             throw new CustomException(ErrorCode.COUPON_QUANTITY_ZERO);// COUPON_NOT_FOUND -> CouponQuatntity Notfound 뭐 이런식으로 변경
@@ -70,7 +73,7 @@ public class CouponService {
             throw new CustomException(ErrorCode.COUPON_OVER_DATE);
         }
 
-        couponRepository.deductCoupon(coupon.getId());//쿠폰 수량 차감
+        couponRepository.deductCoupon(coupon.getId());// 쿠폰 수량 차감
 
         return new UserCouponResponse(userCoupon.getCouponId(), userCoupon.getUserId());
     }
@@ -88,7 +91,7 @@ public class CouponService {
             response.add(new UserCouponResponse(userCoupon.getUserId(), userCoupon.getCouponId()));
         }
 
-        return response;//impl에서 쿠폰 있는지 없는지 로직처리
+        return response;// impl에서 쿠폰 있는지 없는지 로직처리
     }
 
 }
