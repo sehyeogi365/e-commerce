@@ -2,6 +2,7 @@ package kr.hhplus.be.server.domain.error;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.actuate.autoconfigure.observation.ObservationProperties;
 import org.springframework.http.HttpStatus;
 
 @Getter
@@ -19,6 +20,7 @@ public enum ErrorCode {
     COUPON_NOT_FOUND(HttpStatus.BAD_REQUEST, "해당 쿠폰을 찾을 수 없습니다."),
     COUPON_QUANTITY_ZERO(HttpStatus.BAD_REQUEST, "해당 쿠폰을 수량이 부족합니다."),
     COUPON_OVER_DATE(HttpStatus.BAD_REQUEST, "해당 쿠폰을 만료기간일이 지났습니다."),
+    COUPON_ALREADY_ISSUED(HttpStatus.BAD_REQUEST, "해당 쿠폰을 이미 발급했습니다."),
     ORDER_NOT_FOUND(HttpStatus.BAD_REQUEST, "해당 주문내역을 찾을 수 없습니다."),
     PAYMENT_NOT_FOUND(HttpStatus.BAD_REQUEST, "해당 결제내역을 찾을 수 없습니다.");
 
