@@ -6,14 +6,21 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
+
 @Component
 @Repository
 @RequiredArgsConstructor
 @Transactional
 public class RedisCouponRepositoryImpl {
 
-    // 쿠폰 발급
     private final RedisTemplate<String, Long> redisTemplate;
+
+    // 선착순 요청 등록
+    public void addCouponRequest(Long couponId, Long userId) {
+        double score = Instant.now().getEpochSecond(); // UNIX timestamp (초 단위)
+        redisTemplate.opsForZSet().add("coupon:request:" + couponId, userId, score);
+    }
 
     // 쿠폰 개수 감소
     public Long decrementCouponCount(Long couponId) {
@@ -27,11 +34,11 @@ public class RedisCouponRepositoryImpl {
 
     // 중복 발급 방지 (Set 활용)
     public boolean isCouponAlreadyIssued(Long userId) {
-        return Boolean.TRUE.equals(redisTemplate.opsForSet().isMember("coupon:users", userId));
+        return Boolean.TRUE.equals(redisTemplate.opsForSet().isMember("coupon:issued", userId));
     }
 
     // 쿠폰 발급 처리
     public void issueCouponToUser(Long userId) {
-        redisTemplate.opsForSet().add("coupon:users", userId);
+        redisTemplate.opsForSet().add("coupon:issued", userId);
     }
 }
