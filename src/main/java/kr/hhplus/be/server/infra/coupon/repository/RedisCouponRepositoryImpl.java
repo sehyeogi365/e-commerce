@@ -33,12 +33,14 @@ public class RedisCouponRepositoryImpl {
     }
 
     // 중복 발급 방지 (Set 활용)
-    public boolean isCouponAlreadyIssued(Long userId) {
-        return Boolean.TRUE.equals(redisTemplate.opsForSet().isMember("coupon:issued", userId));
+    public boolean isCouponAlreadyIssued(Long userId, Long couponId) {
+        String key = "coupon:issued:" + couponId; // 쿠폰별 발급된 사용자 저장
+        return Boolean.TRUE.equals(redisTemplate.opsForSet().isMember(key, userId));
     }
 
     // 쿠폰 발급 처리
-    public void issueCouponToUser(Long userId) {
-        redisTemplate.opsForSet().add("coupon:issued", userId);
+    public void issueCouponToUser(Long userId, Long couponId) {
+        String key = "coupon:issued:" + couponId; // 쿠폰별 발급된 사용자 저장
+        redisTemplate.opsForSet().add(key, userId);
     }
 }

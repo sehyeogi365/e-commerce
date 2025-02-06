@@ -84,7 +84,7 @@ public class CouponService {
 
         // 1. 중복 발급 방지 (Set 활용)
         //Boolean alreadyIssued = redisTemplate.opsForSet().isMember(COUPON_SET_KEY, userId);
-        if (redisCouponRepository.isCouponAlreadyIssued(userId)) {
+        if (redisCouponRepository.isCouponAlreadyIssued(userId, couponId)) {
             throw new CustomException(ErrorCode.COUPON_ALREADY_ISSUED);
         }
 
@@ -124,7 +124,7 @@ public class CouponService {
         }
 
         // 6. 쿠폰 발급 기록 (Set에 저장)
-        redisCouponRepository.issueCouponToUser(userId);
+        redisCouponRepository.issueCouponToUser(userId, couponId);
         //redisTemplate.opsForSet().add(COUPON_SET_KEY, String.valueOf(userId));
 
         // 7. (비동기) 일정 시간 후 DB 반영
