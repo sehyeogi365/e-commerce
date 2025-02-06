@@ -14,7 +14,7 @@ import java.time.Instant;
 @Transactional
 public class RedisCouponRepositoryImpl {
 
-    private final RedisTemplate<String, Long> redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     // 선착순 요청 등록
     public void addCouponRequest(Long couponId, Long userId) {

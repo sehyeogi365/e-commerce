@@ -60,6 +60,8 @@ dependencies {
 
 	// redisson
 	implementation ("org.redisson:redisson-spring-boot-starter:3.18.0")
+	implementation ("org.springframework.data:spring-data-redis:3.1.2")
+	implementation ("io.lettuce.core:lettuce-core:6.1.4")
 }
 
 tasks.withType<Test> {
