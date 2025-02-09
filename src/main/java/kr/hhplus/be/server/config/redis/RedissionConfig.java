@@ -32,10 +32,6 @@ public class RedissionConfig {
     private static final String REDISSON_HOST_PREFIX = "redis://";
 
 
-    // 생성자 주입
-    public RedissionConfig() {
-    }
-
     @Bean
     public RedissonClient redissonClient() {
         Config config = new Config();
@@ -73,21 +69,13 @@ public class RedissionConfig {
     }
 
     @Bean
-    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+    public RedisTemplate<String, Object> redisTemplate(RedisTemplateProvider redisTemplateProvider) {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
-//        redisTemplate.setValueSerializer(StringRedisSerializer.UTF_8);
-        return redisTemplate;
-    }
-
-    @Bean
-    public RedisTemplate<String, String> redisStringTemplate(LettuceConnectionFactory lettuceConnectionFactory) {
-        RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(lettuceConnectionFactory);
-        redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setValueSerializer(new StringRedisSerializer());
-        return redisTemplate;
+        redisTemplate.afterPropertiesSet();
+        return redisTemplateProvider.getRedisTemplate();
+        //return redisTemplate;
     }
 }

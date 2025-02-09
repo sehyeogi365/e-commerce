@@ -8,13 +8,11 @@ import kr.hhplus.be.server.domain.error.ErrorCode;
 import kr.hhplus.be.server.infra.coupon.repository.RedisCouponRepositoryImpl;
 import kr.hhplus.be.server.interfaces.coupon.dto.CouponResponse;
 import kr.hhplus.be.server.interfaces.coupon.dto.UserCouponResponse;
-import kr.hhplus.be.server.interfaces.product.dto.ProductResponse;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.ILoggerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +22,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
