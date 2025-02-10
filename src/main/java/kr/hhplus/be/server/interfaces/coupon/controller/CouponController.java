@@ -47,7 +47,7 @@ public class CouponController {
         return ApiResponse.ok(response);
     }
     //사용자 쿠폰 조회
-    @PostMapping("/{userId}")
+    @GetMapping("/{userId}")
     @Tag(name = "사용자 쿠폰 조회")
     @Operation(summary = "사용자 쿠폰 조회", description = "사용자 쿠폰을 조회합니다.")
     public ApiResponse<List<UserCouponResponse>> userCouponSelect(@PathVariable("userId") int userId){
