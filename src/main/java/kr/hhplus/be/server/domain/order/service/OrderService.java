@@ -23,10 +23,10 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
-    //주문하기
+    // 주문하기
     @Transactional
     public OrderResponse orderProduct(Order order){
-        //상품 수량 확인후 주문 신청
+        // 상품 수량 확인후 주문 신청
         Product product = productRepository.findById(order.getProductId()).orElseThrow(() -> new CustomException(ErrorCode.ITEM_NOT_FOUND));
 
         OrderResponse response = new OrderResponse(order.getId(), order.getUserId(), order.getCouponId(), order.getProductId());
@@ -38,7 +38,7 @@ public class OrderService {
         return response;
     }
 
-    //주문 목록 조회
+    // 주문 목록 조회
     public List <OrderResponse> getOrderList(long userId){
         List<Order> orderList = orderRepository.getOrders(userId);
 
