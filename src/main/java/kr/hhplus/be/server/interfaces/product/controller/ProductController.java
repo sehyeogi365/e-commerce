@@ -32,7 +32,7 @@ public class ProductController {
     @GetMapping("/select")
     @Tag(name = "상품 조회")
     @Operation(summary = "상품 조회", description = "모든 상품을 조회 합니다.")
-    public ApiResponse<List<ProductResponse>> productSelect(@RequestBody ProductRequest productRequest){
+    public ApiResponse<List<ProductResponse>> productSelect(ProductRequest productRequest){
 
         List<ProductResponse> response = productService.getProducts();
 
@@ -43,7 +43,7 @@ public class ProductController {
     @GetMapping("/rank")
     @Tag(name = "Top5 조회")
     @Operation(summary = "Top5 상품 조회", description = "최근3일간 5순위 상품을 조회 합니다.")
-    public ApiResponse<List<ProductSaleResponse>> top5Select(@RequestBody ProductRequest productRequest){
+    public ApiResponse<List<ProductSaleResponse>> top5Select(ProductRequest productRequest){
 
         List<ProductSaleResponse> response = productService.getTop5List();
 

@@ -52,12 +52,12 @@ class ProductServiceTest {
                                 .build();
 
         List<Product> mockProduct = List.of(product);
-
-        //when
         when(productRepository.getProducts()).thenReturn(mockProduct);
+
+        // when
         List<ProductResponse> result = productService.getProducts();
 
-        //then
+        // then
         assertThat(result).isNotNull();
         assertThat(result.size()).isEqualTo(1);
     }
@@ -73,13 +73,12 @@ class ProductServiceTest {
         Product product = new Product();
 
         List<Product> mockProduct = List.of(product);
-
-        //when
         when(productRepository.getProducts()).thenReturn(Collections.emptyList());
+
+        // when
         List<ProductResponse> result = productService.getProducts();
 
-        //then
-        //assertThat(result).isNotNull();
+        // then
         assertThatThrownBy(() -> productService.getProducts()) // 예외가 발생해야 함
                 .isInstanceOf(CustomException.class) // CustomException 발생 예상
                 .hasMessage(ErrorCode.ITEM_NOT_FOUND.getMessage());
@@ -128,10 +127,9 @@ class ProductServiceTest {
                         .quantitySold(60) // 5번 상품 판매량
                         .build()
         );
-        //List<ProductSale> mockTop5List = List.of(productSale);
-        //when
         when(productRepository.getTop5List()).thenReturn(mockTop5List);
 
+        // when
         List<ProductSaleResponse> result = productService.getTop5List();
         //then
         assertThat(result).isNotNull();
