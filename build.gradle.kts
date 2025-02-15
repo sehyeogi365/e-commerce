@@ -62,7 +62,10 @@ dependencies {
 	implementation ("org.redisson:redisson-spring-boot-starter:3.18.0")
 //	implementation ("org.springframework.data:spring-data-redis:3.1.2")
 	implementation("org.springframework.boot:spring-boot-starter-data-redis")
-	implementation ("io.lettuce.core:lettuce-core:6.2.4")
+	//implementation ("io.lettuce.core:lettuce-core:6.2.4")
+
+	// p6spy
+	implementation ("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0")
 }
 
 tasks.withType<Test> {
