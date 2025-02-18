@@ -1,0 +1,3 @@
+ApplcationEventListener 들
+아웃박스용 리스너 XXOutboxListener (Outbox 테이블 이벤트 감지)
+카프카 내보내기 리스너 XXKafkaListener (Kafka Consumer 리스너)
