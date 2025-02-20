@@ -17,7 +17,7 @@ public class OrderOutboxListener {
 
     private final OrderOutboxRepository orderOutboxRepository;
     private final ObjectMapper objectMapper;
-    @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
+    @TransactionalEventListener
     public void handleOutboxEvent(OrderEvent event) {
         try {
             String payload = objectMapper.writeValueAsString(event);

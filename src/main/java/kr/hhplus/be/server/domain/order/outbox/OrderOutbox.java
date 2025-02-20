@@ -1,14 +1,10 @@
 package kr.hhplus.be.server.domain.order.outbox;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Lob;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import kr.hhplus.be.server.domain.order.enums.OutboxStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.annotation.Id;
+
 
 import java.time.LocalDateTime;
 

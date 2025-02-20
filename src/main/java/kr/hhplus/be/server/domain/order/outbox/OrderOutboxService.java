@@ -1,6 +1,5 @@
 package kr.hhplus.be.server.domain.order.outbox;
 
-import kr.hhplus.be.server.domain.order.enums.OutboxStatus;
 import kr.hhplus.be.server.domain.order.event.OrderEvent;
 import kr.hhplus.be.server.domain.order.event.OrderEventPublisher;
 import kr.hhplus.be.server.domain.order.repository.OrderRepository;
@@ -10,6 +9,7 @@ import kr.hhplus.be.server.domain.point.entity.Point;
 import kr.hhplus.be.server.domain.point.repository.PointRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,9 +19,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class OrderOutboxService {
 
     private final OrderOutboxRepository orderOutboxRepository;
-    private final OrderRepository orderRepository;
     private final PointRepository pointRepository;
     private final PaymentRepository paymentRepository;
+
+    @Lazy
     private final OrderEventPublisher eventPublisher;
 
     @Transactional
