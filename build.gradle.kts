@@ -66,6 +66,9 @@ dependencies {
 
 	// p6spy
 	implementation ("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0")
+
+	// kafka
+	implementation ("org.springframework.kafka:spring-kafka")
 }
 
 tasks.withType<Test> {
