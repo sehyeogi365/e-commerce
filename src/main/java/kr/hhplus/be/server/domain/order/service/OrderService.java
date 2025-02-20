@@ -3,6 +3,7 @@ package kr.hhplus.be.server.domain.order.service;
 import kr.hhplus.be.server.domain.error.CustomException;
 import kr.hhplus.be.server.domain.error.ErrorCode;
 import kr.hhplus.be.server.domain.order.entity.Order;
+import kr.hhplus.be.server.domain.order.outbox.OrderOutboxRepository;
 import kr.hhplus.be.server.domain.order.repository.OrderRepository;
 import kr.hhplus.be.server.domain.product.entity.Product;
 import kr.hhplus.be.server.domain.product.repository.ProductRepository;
@@ -53,5 +54,4 @@ public class OrderService {
 
         return response;
     }
-
 }
