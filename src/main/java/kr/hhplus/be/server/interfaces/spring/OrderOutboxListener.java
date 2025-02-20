@@ -8,6 +8,7 @@ import kr.hhplus.be.server.domain.order.outbox.OrderOutbox;
 import kr.hhplus.be.server.domain.order.outbox.OrderOutboxRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 @Component
@@ -16,7 +17,7 @@ public class OrderOutboxListener {
 
     private final OrderOutboxRepository orderOutboxRepository;
     private final ObjectMapper objectMapper;
-    @TransactionalEventListener
+    @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
     public void handleOutboxEvent(OrderEvent event) {
         try {
             String payload = objectMapper.writeValueAsString(event);
