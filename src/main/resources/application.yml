@@ -23,6 +23,7 @@ spring:
     logging:
       config: classpath:logback-${spring.profiles.active}.xml
 
+
 ---
 spring.config.activate.on-profile: local, test
 
@@ -45,3 +46,14 @@ spring:
     datasource:
       p6spy:
         enable-logging: true
+
+  kafka:
+    bootstrap-servers: kafka1:9092,kafka2:9093,kafka3:9094
+    consumer:
+      group-id: order-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer

@@ -38,10 +38,12 @@ services:
       - ./data/redis:/data  # Redis 데이터
 
   zookeeper:
-    image: wurstmeister/zookeeper
+    image: confluentinc/cp-zookeeper:latest
     container_name: zookeeper
     ports:
       - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
 
   kafka1:
     image: confluentinc/cp-kafka:latest
