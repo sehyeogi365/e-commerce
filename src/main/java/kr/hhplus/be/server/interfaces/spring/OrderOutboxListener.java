@@ -8,7 +8,6 @@ import kr.hhplus.be.server.domain.order.outbox.OrderOutbox;
 import kr.hhplus.be.server.domain.order.outbox.OrderOutboxRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 @Component

@@ -13,7 +13,6 @@ import java.util.List;
 
 @Component // KafkaProducer 구현체는 굳이 없어도 됨
 @RequiredArgsConstructor
-
 public class OrderKafkaEventPublisher {// 바깥 (카프카) 에 메세지를 프로듀스 하는 친구 KafkaTemplate<String, Object> 주입 받음.
     private final KafkaTemplate<String, Object> kafkaTemplate;// 따로 프로듀서 구현체 없이 이렇게 하기
     private final OrderEventPublisher eventPublisher;
