@@ -48,6 +48,7 @@ spring:
         enable-logging: true
 
   kafka:
+    bootstrap-servers: localhost:10002,localhost:10003,localhost:10004
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
