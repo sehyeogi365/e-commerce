@@ -1,0 +1,78 @@
+plugins {
+	java
+	id("org.springframework.boot") version "3.4.1"
+	id("io.spring.dependency-management") version "1.1.7"
+}
+
+fun getGitHash(): String {
+	return providers.exec {
+		commandLine("git", "rev-parse", "--short", "HEAD")
+	}.standardOutput.asText.get().trim()
+}
+
+group = "kr.hhplus.be"
+version = getGitHash()
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencyManagement {
+	imports {
+		mavenBom("org.springframework.cloud:spring-cloud-dependencies:2024.0.0")
+	}
+}
+
+dependencies {
+    // Spring
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.springframework.boot:spring-boot-starter-web")
+
+    // DB
+	runtimeOnly("com.mysql:mysql-connector-j")
+
+    // Test
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.boot:spring-boot-testcontainers")
+	testImplementation("org.testcontainers:junit-jupiter")
+	testImplementation("org.testcontainers:mysql")
+	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+	// lombok
+	compileOnly("org.projectlombok:lombok")
+	annotationProcessor ("org.projectlombok:lombok")
+
+	// gson
+	implementation ("com.google.code.gson:gson")
+
+	// guava
+	implementation ("com.google.guava:guava")
+
+	// swagger
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
+
+	// redisson
+	implementation ("org.redisson:redisson-spring-boot-starter:3.18.0")
+//	implementation ("org.springframework.data:spring-data-redis:3.1.2")
+	implementation("org.springframework.boot:spring-boot-starter-data-redis")
+	//implementation ("io.lettuce.core:lettuce-core:6.2.4")
+
+	// p6spy
+	implementation ("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0")
+
+	// kafka
+	implementation ("org.springframework.kafka:spring-kafka")
+	testImplementation("org.springframework.kafka:spring-kafka-test")
+}
+
+tasks.withType<Test> {
+	useJUnitPlatform()
+	systemProperty("user.timezone", "UTC")
+}
