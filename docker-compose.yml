@@ -15,7 +15,8 @@ services:
     image: bitnami/grafana:latest
     ports:
       - "3000:3000"
-
+    depends_on:
+      - influxdb
   mysql:
     image: mysql:8.0
     ports:
@@ -150,7 +151,7 @@ volumes:
   kafka3_data:
 
 networks:
-  default:
+  app-network:
     driver: bridge
   kafka-cluster:
     driver: bridge
