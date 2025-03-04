@@ -32,11 +32,11 @@ public class PaymentController {
 
         PaymentResponse response = paymentService.addPayment(payment);
 
-        log.info("response " +response);
+        log.info("response " + response);
         return ApiResponse.ok(response);
     }
 
-    //결제 조회
+    // 결제 조회
     @GetMapping("/{userId}")
     @Tag(name = "결제 조회")
     @Operation(summary = "결제 조회", description = "결제 상품을 조회 합니다.")
@@ -44,7 +44,7 @@ public class PaymentController {
 
         List<PaymentResponse> response = paymentService.getPaymentList(userId);
 
-        log.info("response " +response);
+        log.info("response " + response);
         return ApiResponse.ok(response);
     }
 
