@@ -2,8 +2,8 @@ package kr.hhplus.be.server.interfaces.point.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.hhplus.be.server.domain.point.service.PointService;
-import kr.hhplus.be.server.interfaces.point.dto.PointRequest;
-import kr.hhplus.be.server.interfaces.point.dto.PointResponse;
+import kr.hhplus.be.server.interfaces.api.point.dto.PointRequest;
+import kr.hhplus.be.server.interfaces.api.point.dto.PointResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

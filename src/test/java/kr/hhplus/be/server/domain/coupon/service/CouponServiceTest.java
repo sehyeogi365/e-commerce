@@ -7,8 +7,8 @@ import kr.hhplus.be.server.domain.coupon.repository.CouponRepository;
 
 import kr.hhplus.be.server.domain.error.CustomException;
 import kr.hhplus.be.server.domain.error.ErrorCode;
-import kr.hhplus.be.server.interfaces.coupon.dto.CouponResponse;
-import kr.hhplus.be.server.interfaces.coupon.dto.UserCouponResponse;
+import kr.hhplus.be.server.interfaces.api.coupon.dto.CouponResponse;
+import kr.hhplus.be.server.interfaces.api.coupon.dto.UserCouponResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -6,15 +6,12 @@ import kr.hhplus.be.server.domain.coupon.repository.CouponRepository;
 import kr.hhplus.be.server.domain.coupon.repository.RedisCouponRepository;
 import kr.hhplus.be.server.domain.error.CustomException;
 import kr.hhplus.be.server.domain.error.ErrorCode;
-import kr.hhplus.be.server.infra.coupon.repository.RedisCouponRepositoryImpl;
-import kr.hhplus.be.server.interfaces.coupon.dto.CouponResponse;
-import kr.hhplus.be.server.interfaces.coupon.dto.UserCouponResponse;
+import kr.hhplus.be.server.interfaces.api.coupon.dto.CouponResponse;
+import kr.hhplus.be.server.interfaces.api.coupon.dto.UserCouponResponse;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

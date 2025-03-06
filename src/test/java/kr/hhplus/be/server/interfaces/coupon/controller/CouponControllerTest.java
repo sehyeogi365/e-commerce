@@ -6,8 +6,8 @@ import kr.hhplus.be.server.domain.coupon.entity.UserCoupon;
 import kr.hhplus.be.server.domain.coupon.enums.CouponStatus;
 import kr.hhplus.be.server.domain.coupon.service.CouponService;
 
-import kr.hhplus.be.server.interfaces.coupon.dto.CouponResponse;
-import kr.hhplus.be.server.interfaces.coupon.dto.UserCouponResponse;
+import kr.hhplus.be.server.interfaces.api.coupon.dto.CouponResponse;
+import kr.hhplus.be.server.interfaces.api.coupon.dto.UserCouponResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,8 +2,8 @@ package kr.hhplus.be.server.interfaces.product.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.hhplus.be.server.domain.product.service.ProductService;
-import kr.hhplus.be.server.interfaces.product.dto.ProductResponse;
-import kr.hhplus.be.server.interfaces.product.dto.ProductSaleResponse;
+import kr.hhplus.be.server.interfaces.api.product.dto.ProductResponse;
+import kr.hhplus.be.server.interfaces.api.product.dto.ProductSaleResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

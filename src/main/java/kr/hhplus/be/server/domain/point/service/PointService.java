@@ -4,7 +4,7 @@ import kr.hhplus.be.server.domain.error.CustomException;
 import kr.hhplus.be.server.domain.error.ErrorCode;
 import kr.hhplus.be.server.domain.point.entity.Point;
 import kr.hhplus.be.server.domain.point.repository.PointRepository;
-import kr.hhplus.be.server.interfaces.point.dto.PointResponse;
+import kr.hhplus.be.server.interfaces.api.point.dto.PointResponse;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;

@@ -3,10 +3,8 @@ package kr.hhplus.be.server.infra.order.repository;
 import kr.hhplus.be.server.domain.order.entity.Order;
 import kr.hhplus.be.server.domain.order.entity.OrderProduct;
 import kr.hhplus.be.server.domain.order.repository.OrderRepository;
-import kr.hhplus.be.server.domain.product.entity.Product;
 import kr.hhplus.be.server.infra.order.jparepository.OrderJpaRepository;
 import kr.hhplus.be.server.infra.order.jparepository.OrderProductJpaRepository;
-import kr.hhplus.be.server.interfaces.order.dto.OrderResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

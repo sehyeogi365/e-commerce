@@ -5,18 +5,14 @@ import kr.hhplus.be.server.domain.error.ErrorCode;
 import kr.hhplus.be.server.domain.product.entity.Product;
 import kr.hhplus.be.server.domain.product.entity.ProductSale;
 import kr.hhplus.be.server.domain.product.repository.ProductRepository;
-import kr.hhplus.be.server.interfaces.product.dto.ProductResponse;
-import kr.hhplus.be.server.interfaces.product.dto.ProductSaleResponse;
+import kr.hhplus.be.server.interfaces.api.product.dto.ProductResponse;
+import kr.hhplus.be.server.interfaces.api.product.dto.ProductSaleResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
