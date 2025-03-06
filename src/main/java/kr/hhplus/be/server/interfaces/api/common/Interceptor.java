@@ -1,4 +1,4 @@
-package kr.hhplus.be.server.common;
+package kr.hhplus.be.server.interfaces.api.common;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
