@@ -10,4 +10,6 @@ import lombok.NoArgsConstructor;
 public class PaymentRequest {
     private long id;
     private long orderId;
+    private long productId;
+    private long couponId;
 }
