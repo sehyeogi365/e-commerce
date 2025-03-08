@@ -3,7 +3,6 @@ package kr.hhplus.be.server.interfaces.api.common;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
@@ -13,7 +12,7 @@ import java.util.UUID;
 
 @Component
 @Slf4j
-public class SessionAuthFilter implements Filter {//TODO HTTP 메소드, 요청/응답 시간, 클라이언트 IP, 응답 상태 코드
+public class LogFilter implements Filter {//TODO HTTP 메소드, 요청/응답 시간, 클라이언트 IP, 응답 상태 코드
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
