@@ -57,7 +57,8 @@ public class PaymentService {
             pointRepository.usePoint(payment.getUserId(), originPrice);
         }
         //쿠폰 없을시 원래가격 계산
-        //결제 정보 저장
+
+        //결제 정보 저장 -> 리퀘스트 파라미터로 변경후 빌더 부분 변경 해보기
         Payment newPayment = Payment.builder().id(payment.getId())
                 .userId(payment.getUserId())
                 .orderId(payment.getOrderId())
