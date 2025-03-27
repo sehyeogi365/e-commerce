@@ -1,5 +1,6 @@
 package kr.hhplus.be.server.domain.order.service;
 
+import kr.hhplus.be.server.domain.coupon.repository.CouponRepository;
 import kr.hhplus.be.server.domain.error.CustomException;
 import kr.hhplus.be.server.domain.error.ErrorCode;
 import kr.hhplus.be.server.domain.order.entity.Order;
@@ -23,6 +24,8 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
+    private final CouponRepository couponRepository;
+
     // 주문하기
     @Transactional
     public OrderResponse orderProduct(Order order){
@@ -34,6 +37,9 @@ public class OrderService {
         if(product.getQuantity() <= 0){
             throw new CustomException(ErrorCode.ITEM_QUANTITY_ZERO);
         }
+
+        // 주문에 쿠폰 적용
+
 
         return response;
     }

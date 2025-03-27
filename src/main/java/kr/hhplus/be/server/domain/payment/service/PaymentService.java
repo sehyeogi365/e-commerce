@@ -26,7 +26,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class PaymentService {
-
+    //TODO: 결제에 쿠폰 적용 빼기->주문으로 이동, 상품 수량 감소, 판매량 증가, 주문상태 변경, 포인트차감만 넣기
     private final PaymentRepository paymentRepository;
     private final ProductRepository productRepository;
     private final CouponRepository couponRepository;
@@ -69,8 +69,8 @@ public class PaymentService {
                 .discountPrice(discountPrice).build();
 
         Payment savedPayment = paymentRepository.save(newPayment);
-        //상품수량 감소
-        productRepository.productQuantityDecrease(savedPayment.getProductId());
+        //상품수량 감소 -> 주문으로 이동
+        //productRepository.productQuantityDecrease(savedPayment.getProductId());
         //판매량 수량 추가
         productRepository.productSalesIncrease(savedPayment.getProductId());
 
@@ -84,7 +84,7 @@ public class PaymentService {
         return quantity * price;
     }
 
-    //할인 가격 계산
+    // 할인 가격 계산
     public Integer calculateDiscountPrice(int originPrice, long userId, long couponId) {
 
         UserCoupon userCoupon = couponRepository.findUserCouponInfo(userId, couponId)
@@ -97,7 +97,7 @@ public class PaymentService {
         return (originPrice * (100- coupon.getPercent()) / 100);
     }
 
-    //결제 내역 조회
+    // 결제 내역 조회
     public List<PaymentResponse> getPaymentList(long userId) {
         List<Payment> paymentList = paymentRepository.getPaymentList(userId);
         List<PaymentResponse> response = new ArrayList<>();
