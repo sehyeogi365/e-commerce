@@ -11,21 +11,25 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static java.rmi.server.LogStream.log;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
-@Transactional
 public class PointService {
 
     private final PointRepository pointRepository;
 
-    //포인트 조회
+    // 포인트 조회
     public PointResponse getUserPoint(long userId){
-        Point point = pointRepository.getUserPoint(userId);
+        Point point = pointRepository.getByUserId(userId);
+        if(point == null){
+            throw new CustomException(ErrorCode.POINT_NOT_FOUND);
+        }
         return new PointResponse(userId, point.getPoint());
     }
 
-    //잔액 충전
+    // 잔액 충전
     @Transactional//보통이렇게 트랜잭션 붙여줌 예외 사항시 롤백
     public Integer chargePoint(long userId, int point){
 
@@ -53,8 +57,8 @@ public class PointService {
             throw new IllegalArgumentException("백만포인트 이상 충전하면 안됩니다!");
         }
 
-        Point userPoint = pointRepository.getUserPoint(userId);
-
+        Point userPoint = pointRepository.getByUserId(userId);
+        log("userPoint: " + userPoint);
         if(userPoint == null) {
             throw new CustomException(ErrorCode.POINT_NOT_FOUND);
         }

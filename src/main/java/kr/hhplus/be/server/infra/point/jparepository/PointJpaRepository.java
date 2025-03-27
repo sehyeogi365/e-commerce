@@ -11,18 +11,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface PointJpaRepository extends JpaRepository<Point, Long> {
 
-    //포인트 조회
+    // 포인트 조회
     @Lock(LockModeType.OPTIMISTIC_FORCE_INCREMENT)
-    Point findByUserId(long userId);
+    @Query("SELECT p FROM Point p WHERE p.userId = :userId")
+    Point getByUserId(long userId);
 
-    //잔액 충전
-    @Transactional
+    // 잔액 충전
     @Modifying
     @Lock(LockModeType.OPTIMISTIC_FORCE_INCREMENT)
     @Query(value = "Update user_point SET point = point + :point WHERE userId = :userId", nativeQuery = true)
     Integer chargePoint(@Param("userId") long userId, @Param("point") int point);
 
-    //포인트 차감
+    // 포인트 차감
     @Modifying
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query(value = "Update user_point p SET point = point - :point WHERE userId = :userId", nativeQuery = true)

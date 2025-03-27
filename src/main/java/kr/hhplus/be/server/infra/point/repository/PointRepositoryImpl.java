@@ -6,6 +6,8 @@ import kr.hhplus.be.server.infra.point.jparepository.PointJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 @RequiredArgsConstructor
 public class PointRepositoryImpl implements PointRepository {
@@ -13,8 +15,8 @@ public class PointRepositoryImpl implements PointRepository {
     private final PointJpaRepository pointJpaRepository;
 
     @Override
-    public Point getUserPoint(long userId) {
-        return pointJpaRepository.findByUserId(userId);
+    public Point getByUserId(long userId) {
+        return pointJpaRepository.getByUserId(userId);
     }
 
     @Override
