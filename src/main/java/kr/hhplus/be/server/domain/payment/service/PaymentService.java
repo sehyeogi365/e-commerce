@@ -47,22 +47,6 @@ public class PaymentService {
             new CustomException(ErrorCode.ITEM_QUANTITY_ZERO);
         }
 
-        int originPrice = calculateOriginPrice(product.getQuantity(), product.getPrice());
-
-        // 쿠폰 정보 확인 및 수량 차감
-        int discountPrice = 0;
-
-//        if(payment.getCouponId() > 0){//쿠폰 적용 + 가격 감소
-//            //UserCoupon userCoupon = couponRepository.findUserCouponInfo(payment.getUserId(),payment.getCouponId()).orElseThrow(() -> new CustomException(ErrorCode.COUPON_NOT_FOUND));
-//            discountPrice = calculateDiscountPrice(originPrice, payment.getUserId(), payment.getCouponId());
-//            couponRepository.useCoupon(payment.getCouponId());
-//            //포인트 차감
-//            pointRepository.usePoint(payment.getUserId(), discountPrice);
-//        } else {
-//            pointRepository.usePoint(payment.getUserId(), originPrice);
-//        }
-        //쿠폰 없을시 원래가격 계산
-
         //결제 정보 저장 -> 리퀘스트 파라미터로 변경후 빌더 부분 변경 해보기
         Payment newPayment = Payment.builder().id(payment.getId())
                 .userId(payment.getUserId())
@@ -70,8 +54,7 @@ public class PaymentService {
                 .couponId(payment.getCouponId())
                 .productId(payment.getProductId())
                 .paymentStatus(payment.getPaymentStatus())
-                .originPrice(originPrice)
-                .discountPrice(discountPrice).build();
+                .build();
 
         log(payment.getCouponId());
         log(payment.getProductId());
@@ -101,19 +84,6 @@ public class PaymentService {
     public Integer calculateOriginPrice(int quantity, int price) {
         return quantity * price;
     }
-
-    // 할인 가격 계산
-//    public Integer calculateDiscountPrice(int originPrice, long userId, long couponId) {
-//
-//        UserCoupon userCoupon = couponRepository.findUserCouponInfo(userId, couponId)
-//                .orElseThrow(() -> new CustomException(ErrorCode.COUPON_NOT_FOUND));
-//
-//        Coupon coupon = userCoupon.getCoupon();
-//        if (coupon == null) {
-//            throw new CustomException(ErrorCode.COUPON_NOT_FOUND); // coupon이 null인 경우 처리
-//        }
-//        return (originPrice * (100- coupon.getPercent()) / 100);
-//    }
 
     // 결제 내역 조회
     public List<PaymentResponse> getPaymentList(long userId) {
