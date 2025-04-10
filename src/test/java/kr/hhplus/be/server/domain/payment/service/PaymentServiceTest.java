@@ -4,6 +4,9 @@ import kr.hhplus.be.server.domain.coupon.entity.Coupon;
 import kr.hhplus.be.server.domain.coupon.entity.UserCoupon;
 import kr.hhplus.be.server.domain.coupon.enums.CouponStatus;
 import kr.hhplus.be.server.domain.coupon.repository.CouponRepository;
+import kr.hhplus.be.server.domain.order.entity.Order;
+import kr.hhplus.be.server.domain.order.enums.OrderStatus;
+import kr.hhplus.be.server.domain.order.repository.OrderRepository;
 import kr.hhplus.be.server.domain.payment.entity.Payment;
 import kr.hhplus.be.server.domain.payment.enums.PaymentStatus;
 import kr.hhplus.be.server.domain.payment.repository.PaymentRepository;
@@ -36,6 +39,9 @@ class PaymentServiceTest {
     private PaymentRepository paymentRepository;
 
     @Mock
+    private OrderRepository orderRepository;
+
+    @Mock
     private ProductRepository productRepository;
 
     @Mock
@@ -50,8 +56,8 @@ class PaymentServiceTest {
 
     @Test
     @DisplayName("결제하기")
-    void 결제하기()throws ParseException {//jpa에 직접의존해서 db에 연결하는 구조로 단테가 좀 힘듦 레포지터리 통합테스트로 해보기
-        //given
+    void 결제하기()throws ParseException {// jpa에 직접의존해서 db에 연결하는 구조로 단테가 좀 힘듦 레포지터리 통합테스트로 해보기
+        // given
         String dateString = "2026-04-02";
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date expirationDate = dateFormat.parse(dateString);
@@ -85,6 +91,13 @@ class PaymentServiceTest {
                                         .coupon(coupon)
                                         .couponStatus(CouponStatus.UNUSED)
                                         .build();
+        Order order = Order.builder()
+                            .id(orderId)
+                            .userId(userId)
+                            .productId(productId)
+                            .couponId(couponId)
+                            .orderStatus(OrderStatus.ORDERED) // 초기 상태
+                            .build();
 
         Payment payment = Payment.builder()
                             .id(id)
@@ -98,18 +111,20 @@ class PaymentServiceTest {
                             .build();
 
         when(productRepository.findById(productId)).thenReturn(Optional.of(product));
-        when(couponRepository.findUserCouponInfo(userId, couponId)).thenReturn(Optional.of(userCoupon));
-        doNothing().when(couponRepository).useCoupon(couponId);
-        when(pointRepository.usePoint(userId,discountPrice)).thenReturn(discountPrice);
+//        when(couponRepository.findUserCouponInfo(userId, couponId)).thenReturn(Optional.of(userCoupon));
+//        doNothing().when(couponRepository).useCoupon(couponId);
+        when(orderRepository.getOrders(userId)).thenReturn(List.of(order));
+//        when(pointRepository.usePoint(userId,discountPrice)).thenReturn(discountPrice);
         when(paymentRepository.save(any(Payment.class))).thenReturn(payment);
         doNothing().when(productRepository).productQuantityDecrease(productId);
         doNothing().when(productRepository).productSalesIncrease(productId);
-        //when
+        // when
         PaymentResponse result = paymentService.addPayment(payment);
 
-        //then
+        // then
         assertThat(result).isNotNull();
         assertThat(result.getOrderId()).isEqualTo(1L);
+        assertThat(order.getOrderStatus()).isEqualTo(OrderStatus.PAYED);
     }
 
     //시간나면 결제 실패테스트도 해보기
