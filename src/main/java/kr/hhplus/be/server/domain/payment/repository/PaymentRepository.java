@@ -11,12 +11,6 @@ public interface PaymentRepository {
     //결제하기
     Payment save(Payment payment);
 
-//    //OriginPrice 계산
-//    Integer originPrice(int quantity, int price);
-//
-//    //DisCountPrice 계산
-//    Integer discountPrice(int originPrice, int percent);
-
     //결제 내역 조회
     List<Payment> getPaymentList(long userId);
 }

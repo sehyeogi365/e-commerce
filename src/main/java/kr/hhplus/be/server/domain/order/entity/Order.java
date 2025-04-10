@@ -29,9 +29,14 @@ public class Order extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
+    public void changeStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
     @Column(name="originPrice")
     private int originPrice;
 
     @Column(name="discountPrice")
     private int discountPrice;
+
+
 }

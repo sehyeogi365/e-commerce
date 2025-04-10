@@ -1,10 +1,11 @@
 package kr.hhplus.be.server.domain.payment.service;
 
-import kr.hhplus.be.server.domain.coupon.entity.Coupon;
-import kr.hhplus.be.server.domain.coupon.entity.UserCoupon;
 import kr.hhplus.be.server.domain.coupon.repository.CouponRepository;
 import kr.hhplus.be.server.domain.error.CustomException;
 import kr.hhplus.be.server.domain.error.ErrorCode;
+import kr.hhplus.be.server.domain.order.entity.Order;
+import kr.hhplus.be.server.domain.order.enums.OrderStatus;
+import kr.hhplus.be.server.domain.order.repository.OrderRepository;
 import kr.hhplus.be.server.domain.payment.entity.Payment;
 import kr.hhplus.be.server.domain.payment.repository.PaymentRepository;
 
@@ -20,7 +21,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+
+import static java.lang.Math.log;
 
 @Service
 @Slf4j
@@ -28,10 +32,11 @@ import java.util.List;
 public class PaymentService {
     //TODO: 결제에 쿠폰 적용 빼기->주문으로 이동, 상품 수량 감소, 판매량 증가, 주문상태 변경, 포인트차감만 넣기
     private final PaymentRepository paymentRepository;
+    private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
     private final CouponRepository couponRepository;
     private  final PointRepository pointRepository;
-    //결제하기
+    // 결제하기
     @Transactional
     public PaymentResponse addPayment(Payment payment){//TODO - 상품 재고 확인/차감- 쿠폰 검증/사용 - 포인트 차감- 결제 정보 저장 시간나면 Facade패턴도 도입해보기
         // 상품 정보 확인 및 수량 차감
@@ -47,15 +52,15 @@ public class PaymentService {
         // 쿠폰 정보 확인 및 수량 차감
         int discountPrice = 0;
 
-        if(payment.getCouponId() > 0){//쿠폰 적용 + 가격 감소
-            //UserCoupon userCoupon = couponRepository.findUserCouponInfo(payment.getUserId(),payment.getCouponId()).orElseThrow(() -> new CustomException(ErrorCode.COUPON_NOT_FOUND));
-            discountPrice = calculateDiscountPrice(originPrice, payment.getUserId(), payment.getCouponId());
-            couponRepository.useCoupon(payment.getCouponId());
-            //포인트 차감
-            pointRepository.usePoint(payment.getUserId(), discountPrice);
-        } else {
-            pointRepository.usePoint(payment.getUserId(), originPrice);
-        }
+//        if(payment.getCouponId() > 0){//쿠폰 적용 + 가격 감소
+//            //UserCoupon userCoupon = couponRepository.findUserCouponInfo(payment.getUserId(),payment.getCouponId()).orElseThrow(() -> new CustomException(ErrorCode.COUPON_NOT_FOUND));
+//            discountPrice = calculateDiscountPrice(originPrice, payment.getUserId(), payment.getCouponId());
+//            couponRepository.useCoupon(payment.getCouponId());
+//            //포인트 차감
+//            pointRepository.usePoint(payment.getUserId(), discountPrice);
+//        } else {
+//            pointRepository.usePoint(payment.getUserId(), originPrice);
+//        }
         //쿠폰 없을시 원래가격 계산
 
         //결제 정보 저장 -> 리퀘스트 파라미터로 변경후 빌더 부분 변경 해보기
@@ -68,11 +73,24 @@ public class PaymentService {
                 .originPrice(originPrice)
                 .discountPrice(discountPrice).build();
 
+        log(payment.getCouponId());
+        log(payment.getProductId());
+
         Payment savedPayment = paymentRepository.save(newPayment);
-        //상품수량 감소 -> 주문으로 이동
-        //productRepository.productQuantityDecrease(savedPayment.getProductId());
-        //판매량 수량 추가
+        // 상품수량 감소 -> 결제에 유지
+        productRepository.productQuantityDecrease(savedPayment.getProductId());
+        // 판매량 수량 추가
         productRepository.productSalesIncrease(savedPayment.getProductId());
+        // 주문 상태 변경
+        List<Order> orders = orderRepository.getOrders(newPayment.getUserId());
+
+        // 2. 조건에 따라 주문 선택 (예: 가장 최근 주문)
+        Order targetOrder = orders.stream()
+                .max(Comparator.comparing(Order::getCreatedAt)) // createdAt 기준 정렬
+                .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
+
+        // 3. 상태 변경
+        targetOrder.changeStatus(OrderStatus.PAYED);
 
         return new PaymentResponse(savedPayment.getId(), savedPayment.getOrderId());
     }
@@ -85,17 +103,17 @@ public class PaymentService {
     }
 
     // 할인 가격 계산
-    public Integer calculateDiscountPrice(int originPrice, long userId, long couponId) {
-
-        UserCoupon userCoupon = couponRepository.findUserCouponInfo(userId, couponId)
-                .orElseThrow(() -> new CustomException(ErrorCode.COUPON_NOT_FOUND));
-
-        Coupon coupon = userCoupon.getCoupon();
-        if (coupon == null) {
-            throw new CustomException(ErrorCode.COUPON_NOT_FOUND); // coupon이 null인 경우 처리
-        }
-        return (originPrice * (100- coupon.getPercent()) / 100);
-    }
+//    public Integer calculateDiscountPrice(int originPrice, long userId, long couponId) {
+//
+//        UserCoupon userCoupon = couponRepository.findUserCouponInfo(userId, couponId)
+//                .orElseThrow(() -> new CustomException(ErrorCode.COUPON_NOT_FOUND));
+//
+//        Coupon coupon = userCoupon.getCoupon();
+//        if (coupon == null) {
+//            throw new CustomException(ErrorCode.COUPON_NOT_FOUND); // coupon이 null인 경우 처리
+//        }
+//        return (originPrice * (100- coupon.getPercent()) / 100);
+//    }
 
     // 결제 내역 조회
     public List<PaymentResponse> getPaymentList(long userId) {
