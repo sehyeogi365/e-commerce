@@ -96,6 +96,8 @@ class PaymentServiceTest {
                             .userId(userId)
                             .productId(productId)
                             .couponId(couponId)
+                            .originPrice(originalPrice)
+                            .discountPrice(discountPrice)
                             .orderStatus(OrderStatus.ORDERED) // 초기 상태
                             .build();
 
@@ -111,10 +113,7 @@ class PaymentServiceTest {
                             .build();
 
         when(productRepository.findById(productId)).thenReturn(Optional.of(product));
-//        when(couponRepository.findUserCouponInfo(userId, couponId)).thenReturn(Optional.of(userCoupon));
-//        doNothing().when(couponRepository).useCoupon(couponId);
         when(orderRepository.getOrders(userId)).thenReturn(List.of(order));
-//        when(pointRepository.usePoint(userId,discountPrice)).thenReturn(discountPrice);
         when(paymentRepository.save(any(Payment.class))).thenReturn(payment);
         doNothing().when(productRepository).productQuantityDecrease(productId);
         doNothing().when(productRepository).productSalesIncrease(productId);
