@@ -109,9 +109,6 @@ class CouponControllerTest {
     @DisplayName("사용자 쿠폰 목록 ")
     void 사용자_쿠폰_목록 () throws Exception {
         // given
-        String dateString = "2026-04-02";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date expirationDate = dateFormat.parse(dateString);
         long id = 1L;
         long userId = 1L;
         long couponId = 1L;
